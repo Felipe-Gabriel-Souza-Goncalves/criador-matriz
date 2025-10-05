@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matrizes</title>
+
+    <style>
+      body {
+        min-height: 100vh;
+      }
+
+      #grid {
+        margin: 0 auto;
+        display: grid;
+        border-collapse: collapse;
+        text-align: center;
+        width: 800px;
+      }
+      #grid div {
+        text-align: center;
+        align-content: center;
+        border: 1px solid black;
+        background-color: #dedede;
+      }
+
+      #container-regras {
+        display: flex;
+        gap: 12px;
+      }
+
+      #regras-condicoes,
+      #regras-resultados {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* #teclado{
+    } */
+
+      #teclado-secao1,
+      #teclado-secao2 {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(60px, 100px));
+        gap: 6px;
+        align-content: center;
+
+      }
+
+      #teclado-secao2 {
+        display: none;
+      }
+
+      #teclado-secao1 div,
+      #teclado-secao2 div {
+        border: 2px solid lightgray;
+        border-radius: 20px;
+        background-color: rgb(228, 228, 228);
+        font-size: 2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="number" id="linhas" />
+      <input type="number" id="colunas" />
+      <button onclick="criarMatriz()">Enviar</button>
+    </div>
+    <br />
+    <div>
+      <label for="prioridadeUltimo">Dar prioridade à última regra</label>
+      <input id="prioridadeUltimo" type="checkbox" checked disabled />
+
+      Regras:
+      <button onclick="criarInputRegra()">Adicionar regra</button>
+
+      <div id="container-regras">
+        <div id="regras-condicoes" onclick="isCondicao = true">
+          <!-- Campo para gerar novas condições -->
+          <input
+            type="text"
+            class="regra-condicao"
+            readonly
+            onclick="inputRegra = 0"
+            value="i > j"
+            min="0"
+            max="20"
+          />
+        </div>
+
+        <div id="regras-resultados" onclick="isCondicao = false">
+          <!-- Campo para gerar os resultados das condições -->
+          <input
+            type="text"
+            class="regra-resultado"
+            readonly
+            onclick="inputRegra = 0"
+            value="2*i + 3"
+            min="0"
+            max="20"
+          />
+        </div>
+
+        <div id="regras-cores">
+          <input
+            type="color"
+            class="regra-cor"
+            onclick="inputRegra = 0"
+            onchange="regras[inputRegra][2] = cor[inputRegra].value"
+            value="#efefef"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div id="grid"></div>
+
+    <div id="teclado">
+      <div id="teclado-secao1">
+        <div onclick="digitarRegra('i')">i</div>
+        <div onclick="digitarRegra('j')">j</div>
+        <div onclick="limparRegra()">C</div>
+        <div onclick="apagarChar()"><img src="delete_character.svg" width="30px" alt="X"/></div>
+
+        <div onclick="digitarRegra('7')">7</div>
+        <div onclick="digitarRegra('8')">8</div>
+        <div onclick="digitarRegra('9')">9</div>
+        <div onclick="digitarRegra('/')">&div;</div>
+
+        <div onclick="digitarRegra('4')">4</div>
+        <div onclick="digitarRegra('5')">5</div>
+        <div onclick="digitarRegra('6')">6</div>
+        <div onclick="digitarRegra('*')">&times;</div>
+
+        <div onclick="digitarRegra('1')">1</div>
+        <div onclick="digitarRegra('2')">2</div>
+        <div onclick="digitarRegra('3')">3</div>
+        <div onclick="digitarRegra('-')">&minus;</div>
+
+        <div onclick="trocarTeclado(1)">&#8646;</div>
+        <div onclick="digitarRegra('0')">0</div>
+        <div onclick="">&equals;</div>
+        <div onclick="digitarRegra('+')">&plus;</div>
+      </div>
+
+      <div id="teclado-secao2">
+        <div onclick="digitarRegra('i')">i</div>
+        <div onclick="digitarRegra('j')">j</div>
+        <div onclick="limparRegra()">C</div>
+        <div onclick="apagarChar()"><img src="delete_character.svg" width="30px" alt="X"/></div>
+
+        <div onclick="digitarRegra('>')">&gt;</div>
+        <div onclick="digitarRegra('>=')">&GreaterEqual;</div>
+        <div onclick="digitarRegra('')">&pi;</div>
+        <div onclick="digitarRegra('/')">&div;</div>
+
+        <div onclick="digitarRegra('<')">&lt;</div>
+        <div onclick="digitarRegra('<=')">≤</div>
+        <div onclick="digitarRegra('')">6</div>
+        <div onclick="digitarRegra('*')">&times;</div>
+
+        <div onclick="digitarRegra('1')">1</div>
+        <div onclick="digitarRegra('2')">2</div>
+        <div onclick="digitarRegra('3')">3</div>
+        <div onclick="digitarRegra('-')">&minus;</div>
+
+        <div onclick="trocarTeclado(0)">&#8646;</div>
+        <div onclick="digitarRegra('0')">0</div>
+        <div onclick="">&equals;</div>
+        <div onclick="digitarRegra('+')">&plus;</div>
+      </div>
+    </div>
+    <script>
+      let regras = [["i > j", "2*i - j", "#ddffdd"]];
+      let inputRegra = 0;
+      let isCondicao = true;
+      const condicao = document.getElementsByClassName("regra-condicao");
+      const resultado = document.getElementsByClassName("regra-resultado");
+      const cor = document.getElementsByClassName("regra-cor");
+
+      function criarMatriz() {
+        const linhas = document.getElementById("linhas").value;
+        const colunas = document.getElementById("colunas").value;
+
+        document.getElementById(
+          "grid"
+        ).style.gridTemplateRows = `repeat(${linhas}, minmax(${
+          200 / linhas
+        }px, 1fr))`;
+        document.getElementById(
+          "grid"
+        ).style.gridTemplateColumns = `repeat(${colunas}, minmax(${
+          200 / colunas
+        }px, 1fr))`;
+        document.getElementById("grid").innerHTML = "";
+
+        const numeroCelulas = linhas * colunas;
+
+        for (let i = 1; i <= linhas; i++) {
+          for (let j = 1; j <= colunas; j++) {
+            const div = document.createElement("div");
+
+            div.innerText = "1";
+            div.style.background = "#efefef";
+            regras.forEach((regra) => {
+              const pertence = returnRule(i, j, regra[0]);
+              if (pertence) {
+                let valor = returnRule(i, j, regra[1]);
+                div.innerText = valor;
+                div.style.background = regra[2];
+              }
+            });
+
+            document.getElementById("grid").appendChild(div);
+          }
+        }
+      }
+
+      function digitarRegra(char) {
+        if (isCondicao == true) {
+          if (!regras[inputRegra][0]) regras[inputRegra][0] = "";
+          regras[inputRegra][0] += char;
+
+          document.getElementsByClassName("regra-condicao")[inputRegra].value =
+            regras[inputRegra][0];
+        } else {
+          if (!regras[inputRegra][1]) regras[inputRegra][1] = "";
+          regras[inputRegra][1] += char;
+
+          document.getElementsByClassName("regra-resultado")[inputRegra].value =
+            regras[inputRegra][1];
+        }
+      }
+
+      function apagarChar() {
+        const classe = isCondicao ? "regra-condicao" : "regra-resultado";
+        const input = document.getElementsByClassName(classe)[inputRegra];
+
+        input.value = input.value.slice(0, input.value.length - 1).trim();
+
+        if (isCondicao) {
+          regras[inputRegra][0] = input.value;
+        } else {
+          regras[inputRegra][1] = input.value;
+        }
+      }
+
+      function limparRegra() {
+        const classe = isCondicao ? "regra-condicao" : "regra-resultado";
+        const input = document.getElementsByClassName(classe)[inputRegra];
+
+        input.value = "";
+
+        if (isCondicao) {
+          regras[inputRegra][0] = "";
+        } else {
+          regras[inputRegra][1] = "";
+        }
+      }
+
+      function criarInputRegra() {
+        const ultimaCondicao = condicao[condicao.length - 1].value;
+        const ultimoResultado = resultado[resultado.length - 1].value;
+
+        if (!ultimaCondicao.trim() || !ultimoResultado.trim()) {
+          console.log("Alguma condição vazia");
+          return;
+        }
+
+        regras.push([]);
+
+        const novaCondicao = document.createElement("input");
+        const novoResultado = document.createElement("input");
+        const novaCor = document.createElement("input");
+
+        novaCondicao.readOnly = true;
+        novoResultado.readOnly = true;
+        novaCor.type = "color";
+
+        novaCondicao.classList.add("regra-condicao");
+        novoResultado.classList.add("regra-resultado");
+        novaCor.classList.add("regra-cor");
+
+        novaCondicao.setAttribute("onclick", "inputRegra = regras.length - 1");
+        novoResultado.setAttribute("onclick", "inputRegra = regras.length - 1");
+
+        novaCor.setAttribute("onclick", "inputRegra = regras.length - 1");
+        novaCor.setAttribute(
+          "onchange",
+          "regras[inputRegra][2] = cor[inputRegra].value"
+        );
+
+        document.getElementById("regras-condicoes").appendChild(novaCondicao);
+        document.getElementById("regras-resultados").appendChild(novoResultado);
+        document.getAnimations("regras-cores").appendChild(novaCor);
+      }
+
+      function returnRule(i = null, j = null, rule) {
+        try {
+          const resultado = eval(rule);
+          return resultado;
+        } catch (error) {
+          console.log(resultado);
+        }
+      }
+
+      function trocarTeclado(i) {
+        const secoesTeclado = document.querySelectorAll(
+          "div[id^='teclado-secao']"
+        );
+        for (let i = 0; i < secoesTeclado.length; i++) {
+          secoesTeclado[i].style.display = "none";
+        }
+
+        secoesTeclado[i].style.display = "grid";
+      }
+    </script>
+  </body>
+</html>
