@@ -1,0 +1,49 @@
+#grid {
+  margin: 0 auto;
+  display: grid;
+  border-collapse: collapse;
+  text-align: center;
+  width: 800px;
+}
+#grid div {
+  text-align: center;
+  align-content: center;
+  border: 1px solid black;
+  background-color: #dedede;
+}
+
+#container-regras {
+  display: flex;
+  gap: 12px;
+}
+
+#regras-condicoes,
+#regras-resultados {
+  display: flex;
+  flex-direction: column;
+}
+
+
+#teclado-secao1,
+#teclado-secao2 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(60px, 100px));
+  gap: 6px;
+  align-content: center;
+
+}
+
+#teclado-secao2 {
+  display: none;
+}
+
+#teclado-secao1 div,
+#teclado-secao2 div {
+  border: 2px solid lightgray;
+  border-radius: 20px;
+  background-color: rgb(228, 228, 228);
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
