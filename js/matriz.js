@@ -1,6 +1,34 @@
 let regras = [[]];
+let lengthOp = [];
+let currentTeclado = 0
 let inputRegra = 0;
 let isCondicao = true;
+
+const tecladoOrganizado = [
+  [
+   "1", "2", "3", "4", "5", 
+   "6", "7", "8", "9", "0", 
+   "(", ")", ">", "<", ".",
+   "i", "j", "+", "-", 
+  ],
+  [
+    ["/", "/", "÷"], 
+    ["*", "*", "×"], 
+    ["=", "==", "="], 
+    ["p", "Math.PI", "π"], 
+    ["e", "Math.E", "e"], 
+    ["s", "Math.sin(", "sen("], 
+    ["c", "Math.cos(", "cos("], 
+    ["t", "Math.tan(", "tg("], 
+  ],
+
+  [
+    ["Backspace", "apagarChar()"],
+    ["Shift", "trocarTeclado()"],
+  ]
+];
+
+
 
 const condicao = document.getElementsByClassName("regra-condicao");
 const resultado = document.getElementsByClassName("regra-resultado");
@@ -32,6 +60,10 @@ function criarMatriz() {
             valor = valor.toFixed(2)
           } catch (error) {
             console.log("Erro ao converter",error)
+            if(isNaN(valor)){
+              document.getElementById("grid").innerHTML = "Erro na regra";
+              return 
+            }
           }
 
           div.innerText = valor;
@@ -59,18 +91,25 @@ function digitarRegra(char, charShow = null) {
     // Atualizar elemento
     document.getElementsByClassName("regra-resultado")[inputRegra].value += charShow || char;
   }
+
+  lengthOp.push([char.length, (charShow.length || char.length)])
+
 }
+
+
 
 function apagarChar() {
   const classe = isCondicao ? "regra-condicao" : "regra-resultado";
   const input = document.getElementsByClassName(classe)[inputRegra];
+  const lengthOfChar = lengthOp[lengthOp.length - 1]
 
-  input.value = input.value.slice(0, input.value.length - 1).trim();
+  input.value = input.value.slice(0, input.value.length - lengthOfChar).trim();
+
 
   if (isCondicao) {
-    regras[inputRegra][0] = input.value;
+    regras[inputRegra][0] = regras[inputRegra][0].slice(0, regras[inputRegra][0].length - lengthOfChar)
   } else {
-    regras[inputRegra][1] = input.value;
+    regras[inputRegra][1] = regras[inputRegra][1].slice(0, regras[inputRegra][1].length - lengthOfChar)
   }
 }
 
@@ -143,3 +182,19 @@ function trocarTeclado(i) {
 
   secoesTeclado[i].style.display = "grid";
 }
+
+// document.body.addEventListener("keydown", (e) =>{
+
+//   console.log(e.key)
+  
+//   if(tecladoOrganizado[0].includes(e.key)){
+//     digitarRegra(e.key)
+//   } else {
+//     tecladoOrganizado[1].forEach(set =>{
+//       if(set.includes(e.key)){
+//         digitarRegra(set[1], set[2])
+//       }
+//     })
+//     return
+//   }
+// })
