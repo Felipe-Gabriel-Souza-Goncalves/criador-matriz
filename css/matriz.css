@@ -18,7 +18,8 @@
 }
 
 #regras-condicoes,
-#regras-resultados {
+#regras-resultados,
+#regras-cores {
   display: flex;
   flex-direction: column;
 }

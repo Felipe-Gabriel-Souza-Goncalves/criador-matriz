@@ -1,6 +1,7 @@
-let regras = [["i > j", "2*i - j", "#ddffdd"]];
+let regras = [[]];
 let inputRegra = 0;
 let isCondicao = true;
+
 const condicao = document.getElementsByClassName("regra-condicao");
 const resultado = document.getElementsByClassName("regra-resultado");
 const cor = document.getElementsByClassName("regra-cor");
@@ -13,18 +14,26 @@ function criarMatriz() {
   document.getElementById("grid").style.gridTemplateColumns = `repeat(${colunas}, minmax(${200 / colunas}px, 1fr))`;
   document.getElementById("grid").innerHTML = "";
 
-  const numeroCelulas = linhas * colunas;
-
   for (let i = 1; i <= linhas; i++) {
     for (let j = 1; j <= colunas; j++) {
       const div = document.createElement("div");
 
+      // Valores / cores padrão
       div.innerText = "1";
       div.style.background = "#efefef";
+      
       regras.forEach((regra) => {
         const pertence = returnRule(i, j, regra[0]);
         if (pertence) {
           let valor = returnRule(i, j, regra[1]);
+
+          try {
+            valor = parseFloat(valor)
+            valor = valor.toFixed(2)
+          } catch (error) {
+            console.log("Erro ao converter",error)
+          }
+
           div.innerText = valor;
           div.style.background = regra[2];
         }
@@ -35,19 +44,20 @@ function criarMatriz() {
   }
 }
 
-function digitarRegra(char) {
+function digitarRegra(char, charShow = null) {
   if (isCondicao == true) {
     if (!regras[inputRegra][0]) regras[inputRegra][0] = "";
     regras[inputRegra][0] += char;
 
-    document.getElementsByClassName("regra-condicao")[inputRegra].value =
-      regras[inputRegra][0];
+    // Atualizar elemento
+    document.getElementsByClassName("regra-condicao")[inputRegra].value += charShow || char;
+
   } else {
     if (!regras[inputRegra][1]) regras[inputRegra][1] = "";
     regras[inputRegra][1] += char;
 
-    document.getElementsByClassName("regra-resultado")[inputRegra].value =
-      regras[inputRegra][1];
+    // Atualizar elemento
+    document.getElementsByClassName("regra-resultado")[inputRegra].value += charShow || char;
   }
 }
 
@@ -111,7 +121,7 @@ function criarInputRegra() {
 
   document.getElementById("regras-condicoes").appendChild(novaCondicao);
   document.getElementById("regras-resultados").appendChild(novoResultado);
-  document.getAnimations("regras-cores").appendChild(novaCor);
+  document.getElementById("regras-cores").appendChild(novaCor);
 }
 
 function returnRule(i = null, j = null, rule) {
