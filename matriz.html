@@ -16,8 +16,8 @@
     </div>
     <br />
     <div>
-      <label for="prioridadeUltimo">Dar prioridade à última regra</label>
-      <input id="prioridadeUltimo" type="checkbox" checked disabled />
+      <!-- <label for="prioridadeUltimo">Dar prioridade à última regra</label> -->
+      <!-- <input id="prioridadeUltimo" type="checkbox" checked disabled /> -->
 
       Regras:
       <button onclick="criarInputRegra()">Adicionar regra</button>
@@ -30,6 +30,7 @@
             class="regra-condicao"
             readonly
             onclick="inputRegra = 0"
+            onfocus="isCondicao = true"
             placeholder="Ex: i > j"
             min="0"
             max="20"
@@ -43,6 +44,7 @@
             class="regra-resultado"
             readonly
             onclick="inputRegra = 0"
+            onfocus="isCondicao = false"
             placeholder="Ex: 2*i + 3"
             min="0"
             max="20"
