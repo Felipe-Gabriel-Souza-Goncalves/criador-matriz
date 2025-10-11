@@ -8,3 +8,11 @@
 - Criar regras simples de condições e resultados
 - Alterar cor para cada regra
 - Teclado simples
+
+## 1.1 - 10/10/2025
+- Poucos atalhos de símbolos/comandos
+- Deletar a depender no tamanho do símbolo
+
+## 1.2 - 11/10/2025
+- Card de atalhos disponíveis
+- Design e responsividade mínima 

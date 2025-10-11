@@ -1,6 +1,5 @@
 - Não há front-end adequado
 - Não há responsividade
-- Não há limite de tamanho para linhas/colunas
 - Teclado gera embaixo da matriz
 - Só uma regra funciona por vez
 - Não é possível excluir uma regra

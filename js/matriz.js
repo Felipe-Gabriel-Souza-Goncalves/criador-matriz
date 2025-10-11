@@ -26,6 +26,7 @@ const tecladoOrganizado = [
     ["Backspace", apagarChar],
     ["ArrowLeft", trocarTeclado],
     ["ArrowRight", trocarTeclado],
+    ["Enter", criarMatriz]
   ]
 ];
 
@@ -38,6 +39,13 @@ const cor = document.getElementsByClassName("regra-cor");
 function criarMatriz() {
   const linhas = document.getElementById("linhas").value;
   const colunas = document.getElementById("colunas").value;
+
+  if((linhas <= 0 || linhas > 20) || (colunas <= 0 || colunas > 20)){
+    document.getElementById("grid").innerHTML = "<strong>Linhas e colunas devem ser de 1 a 20</strong>"
+    document.getElementById("grid").style.gridTemplateRows = `1fr`;
+    document.getElementById("grid").style.gridTemplateColumns = `1fr`;
+    return
+  }
 
   document.getElementById("grid").style.gridTemplateRows = `repeat(${linhas}, minmax(${200 / linhas}px, 1fr))`;
   document.getElementById("grid").style.gridTemplateColumns = `repeat(${colunas}, minmax(${200 / colunas}px, 1fr))`;
@@ -56,19 +64,28 @@ function criarMatriz() {
         if (pertence) {
           let valor = returnRule(i, j, regra[1]);
 
+          
+
           try {
             valor = parseFloat(valor)
-            valor = valor.toFixed(2)
-          } catch (error) {
-            console.log("Erro ao converter",error)
+            
+            if(Number.isInteger(valor)) valor = parseInt(valor)
+            else valor = valor.toFixed(2)
+            
+
             if(isNaN(valor)){
-              document.getElementById("grid").innerHTML = "Erro na regra";
+              document.getElementById("grid").innerHTML = "<strong>Erro na regra</strong>";
               return 
             }
+          } catch (error) {
+            console.log(error)
           }
 
           div.innerText = valor;
           div.style.background = regra[2];
+
+          const widthDiv = window.getComputedStyle(div).getPropertyValue("width") 
+          
         }
       });
 
@@ -136,7 +153,7 @@ function criarInputRegra() {
   const ultimoResultado = resultado[resultado.length - 1].value;
 
   if (!ultimaCondicao.trim() || !ultimoResultado.trim()) {
-    console.log("Alguma condição vazia");
+    document.getElementById("grid").innerHTML = "<strong>Alguma condição vazia</strong>";
     return;
   }
 
@@ -154,10 +171,10 @@ function criarInputRegra() {
   novoResultado.classList.add("regra-resultado");
   novaCor.classList.add("regra-cor");
 
-  novaCondicao.setAttribute("onclick", "inputRegra = regras.length - 1");
-  novoResultado.setAttribute("onclick", "inputRegra = regras.length - 1");
+  novaCondicao.setAttribute("onfocus", `isCondicao = true; inputRegra = ${regras.length - 1}`);
+  novoResultado.setAttribute("onfocus", `isCondicao = false; inputRegra = ${regras.length - 1}`);
 
-  novaCor.setAttribute("onclick", "inputRegra = regras.length - 1");
+  novaCor.setAttribute("onclick", `inputRegra = ${regras.length - 1}`);
   novaCor.setAttribute(
     "onchange",
     "regras[inputRegra][2] = cor[inputRegra].value"
@@ -195,26 +212,39 @@ function trocarTeclado(i = null) {
 
 document.body.addEventListener("keydown", (e) =>{
 
-  console.log(e.key)
-  
   if(tecladoOrganizado[0].includes(e.key)){
+    if(e.target.classList.contains('regra-condicao') == false &&
+       e.target.classList.contains('regra-resultado') == false){
+      return
+    }
+    
     digitarRegra(e.key)
+    return
+
   } else {
+
     tecladoOrganizado[1].forEach(set =>{
+    if(e.target.classList.contains('regra-condicao') == false &&
+      e.target.classList.contains('regra-resultado') == false){
+      return
+    }
+      
       if(set.includes(e.key)){
         digitarRegra(set[1], set[2])
+        return
+
       }
     })
+
+    tecladoOrganizado[2].forEach(set =>{
+      if(set.includes(e.key)){
+        (set[1])();
+        return
+      }
+    })
+
   }
 
-  tecladoOrganizado[2].forEach(set =>{
-    if(set.includes(e.key)){
-      (set[1])();
-      try {
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  })
+
   
 })
