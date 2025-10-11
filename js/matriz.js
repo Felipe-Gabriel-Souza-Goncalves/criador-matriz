@@ -23,8 +23,9 @@ const tecladoOrganizado = [
   ],
 
   [
-    ["Backspace", "apagarChar()"],
-    ["Shift", "trocarTeclado()"],
+    ["Backspace", apagarChar],
+    ["ArrowLeft", trocarTeclado],
+    ["ArrowRight", trocarTeclado],
   ]
 ];
 
@@ -92,7 +93,7 @@ function digitarRegra(char, charShow = null) {
     document.getElementsByClassName("regra-resultado")[inputRegra].value += charShow || char;
   }
 
-  lengthOp.push([char.length, (charShow.length || char.length)])
+  lengthOp.push([char.length, (charShow ? charShow.length : char.length)])
 
 }
 
@@ -103,14 +104,18 @@ function apagarChar() {
   const input = document.getElementsByClassName(classe)[inputRegra];
   const lengthOfChar = lengthOp[lengthOp.length - 1]
 
-  input.value = input.value.slice(0, input.value.length - lengthOfChar).trim();
+  if(input.value === "") return
+  
+  input.value = input.value.slice(0, (input.value.length - lengthOfChar[1])).trim();
 
 
   if (isCondicao) {
-    regras[inputRegra][0] = regras[inputRegra][0].slice(0, regras[inputRegra][0].length - lengthOfChar)
+    regras[inputRegra][0] = regras[inputRegra][0].slice(0, regras[inputRegra][0].length - lengthOfChar[0])
   } else {
-    regras[inputRegra][1] = regras[inputRegra][1].slice(0, regras[inputRegra][1].length - lengthOfChar)
+    regras[inputRegra][1] = regras[inputRegra][1].slice(0, regras[inputRegra][1].length - lengthOfChar[0])
   }
+
+  lengthOp.pop()
 }
 
 function limparRegra() {
@@ -172,7 +177,12 @@ function returnRule(i = null, j = null, rule) {
   }
 }
 
-function trocarTeclado(i) {
+function trocarTeclado(i = null) {
+
+  if(i == null){
+    currentTeclado = (currentTeclado + 1) % 2
+  }
+
   const secoesTeclado = document.querySelectorAll(
     "div[id^='teclado-secao']"
   );
@@ -180,21 +190,31 @@ function trocarTeclado(i) {
     secoesTeclado[i].style.display = "none";
   }
 
-  secoesTeclado[i].style.display = "grid";
+  secoesTeclado[i || currentTeclado].style.display = "grid";
 }
 
-// document.body.addEventListener("keydown", (e) =>{
+document.body.addEventListener("keydown", (e) =>{
 
-//   console.log(e.key)
+  console.log(e.key)
   
-//   if(tecladoOrganizado[0].includes(e.key)){
-//     digitarRegra(e.key)
-//   } else {
-//     tecladoOrganizado[1].forEach(set =>{
-//       if(set.includes(e.key)){
-//         digitarRegra(set[1], set[2])
-//       }
-//     })
-//     return
-//   }
-// })
+  if(tecladoOrganizado[0].includes(e.key)){
+    digitarRegra(e.key)
+  } else {
+    tecladoOrganizado[1].forEach(set =>{
+      if(set.includes(e.key)){
+        digitarRegra(set[1], set[2])
+      }
+    })
+  }
+
+  tecladoOrganizado[2].forEach(set =>{
+    if(set.includes(e.key)){
+      (set[1])();
+      try {
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  })
+  
+})
