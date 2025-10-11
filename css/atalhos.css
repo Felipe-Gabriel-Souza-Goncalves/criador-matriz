@@ -1,0 +1,23 @@
+#bg-card-atalhos{
+  box-sizing: border-box;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(196, 196, 196, 0.35);
+  backdrop-filter: blur(4px);
+  align-content: center;
+  justify-items: center;
+}
+#card-atalhos{
+  min-width: 750px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  background-color: white;
+  box-shadow: 4px 4px 0px 0px rgb(209, 209, 209);
+  border-radius: 12px;
+  padding: 32px 16px;
+}

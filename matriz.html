@@ -7,47 +7,49 @@
 
     <link rel="stylesheet" href="css/geral.css">
     <link rel="stylesheet" href="css/matriz.css">
+    <link rel="stylesheet" href="css/regras.css">
+    <link rel="stylesheet" href="css/atalhos.css">
   </head>
   <body>
     <div>
-      <input type="number" id="linhas" />
-      <input type="number" id="colunas" />
+      <input type="number" id="linhas" min="0" max="20"/>
+      <input type="number" id="colunas" min="0" max="20"/>
       <button onclick="criarMatriz()">Enviar</button>
     </div>
     <br />
     <div>
-      <!-- <label for="prioridadeUltimo">Dar prioridade à última regra</label> -->
-      <!-- <input id="prioridadeUltimo" type="checkbox" checked disabled /> -->
 
-      Regras:
-      <button onclick="criarInputRegra()">Adicionar regra</button>
+      <p>
+        Atalhos: 
+        <button onclick="document.getElementById('bg-card-atalhos').style.display ='block'">Ver atalhos</button>
+      </p>
+
+      <p>
+        Regras:
+        <button onclick="criarInputRegra()">Adicionar regra</button>
+      </p>
 
       <div id="container-regras">
-        <div id="regras-condicoes" onclick="isCondicao = true">
+        <div id="regras-condicoes">
           <!-- Campo para gerar novas condições -->
           <input
             type="text"
             class="regra-condicao"
             readonly
-            onclick="inputRegra = 0"
-            onfocus="isCondicao = true"
-            placeholder="Ex: i > j"
-            min="0"
-            max="20"
+            onfocus="isCondicao = true; inputRegra = 0"
+            placeholder="Ex: i>j"
+
           />
         </div>
 
-        <div id="regras-resultados" onclick="isCondicao = false">
+        <div id="regras-resultados">
           <!-- Campo para gerar os resultados das condições -->
           <input
             type="text"
             class="regra-resultado"
             readonly
-            onclick="inputRegra = 0"
-            onfocus="isCondicao = false"
-            placeholder="Ex: 2*i + 3"
-            min="0"
-            max="20"
+            onfocus="isCondicao = false; inputRegra = 0"
+            placeholder="Ex: 2×i + 3"
           />
         </div>
 
@@ -66,7 +68,8 @@
     <div id="grid"></div>
 
     <div id="teclado">
-      <i>Usar radianos para trigonometria</i>
+      <strong><i>Usar radianos para trigonometria</i></strong>
+      <br><br>
 
       <div id="teclado-secao1">
         <div onclick="digitarRegra('i')">i</div>
@@ -123,6 +126,46 @@
       </div>
     </div>
 
+    <div id="bg-card-atalhos">
+      <div id="card-atalhos">
+        <div>
+          <h1>Atalhos</h1>
+          <button onclick="document.getElementById('bg-card-atalhos').style.display = 'none'">X</button>
+        </div>
+        <hr>
+        <h2>Símbolos</h2>
+        <ul>
+          <li>
+            <button class="button-atalhos">p</button>
+             - π</li>
+          <li>
+            <button class="button-atalhos">e</button>
+             - e</li>
+          <li>
+            <button class="button-atalhos">s</button>
+             - Seno</li>
+          <li>
+            <button class="button-atalhos">c</button>
+             - Cosseno</li>
+          <li>
+            <button class="button-atalhos">t</button>
+             - Tangente</li>
+        </ul>
+        <hr>
+        <h2>Comandos</h2>
+        <ul>
+          <li>
+            <button class="button-atalhos">a</button>
+            - Apagar símbolo</li>
+          <li>
+            <button class="button-atalhos">a</button>
+            - Trocar teclado</li>
+          <li>
+            <button class="button-atalhos">a</button>
+            - Criar Matriz</li>
+        </ul>
+      </div>
+    </div>
 
     <script src="js/geral.js"></script>
     <script src="js/matriz.js"></script>

@@ -4,6 +4,12 @@
   border-collapse: collapse;
   text-align: center;
   width: 800px;
+  max-width: 94vw;
+}
+#grid strong{
+  text-align: center;
+  align-content: center;
+  width: 100%;
 }
 #grid div {
   text-align: center;
@@ -24,6 +30,12 @@
   flex-direction: column;
 }
 
+#teclado{
+  margin: 8px 4px;
+  justify-items: center;
+  align-content: center;
+  text-align: center;
+}
 
 #teclado-secao1,
 #teclado-secao2 {
@@ -47,4 +59,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#teclado-secao1 div:hover,
+#teclado-secao2 div:hover{
+  background-color:  rgb(255, 163, 82);
+  border: 2px solid rgb(148, 148, 148);
+
+  color: white;
 }
