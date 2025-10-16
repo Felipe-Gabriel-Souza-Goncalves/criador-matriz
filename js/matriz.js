@@ -15,18 +15,20 @@ const tecladoOrganizado = [
     ["/", "/", "÷"], 
     ["*", "*", "×"], 
     ["=", "==", "="], 
-    ["p", "Math.PI", "π"], 
-    ["e", "Math.E", "e"], 
-    ["s", "Math.sin(", "sen("], 
-    ["c", "Math.cos(", "cos("], 
-    ["t", "Math.tan(", "tg("], 
+    ["p", "Math.PI", "π", 0], 
+    ["e", "Math.E", "e", 1], 
+    ["s", "Math.sin(", "sen(", 2], 
+    ["c", "Math.cos(", "cos(", 3], 
+    ["t", "Math.tan(", "tg(", 4], 
   ],
 
   [
-    ["Backspace", apagarChar],
-    ["ArrowLeft", trocarTeclado],
-    ["ArrowRight", trocarTeclado],
-    ["Enter", criarMatriz]
+    ["Backspace", apagarChar, 5],
+    ["ArrowLeft", trocarTeclado, 6],
+    ["ArrowRight", trocarTeclado, 7],
+    ["Enter", criarMatriz, 8],
+    ["Escape", fecharElemento, 9],
+    ["a", toggleAtalhos, 10]
   ]
 ];
 
@@ -84,7 +86,7 @@ function criarMatriz() {
           div.innerText = valor;
           div.style.background = regra[2];
 
-          const widthDiv = window.getComputedStyle(div).getPropertyValue("width") 
+          // const widthDiv = window.getComputedStyle(div).getPropertyValue("width") 
           
         }
       });
@@ -145,6 +147,20 @@ function limparRegra() {
     regras[inputRegra][0] = "";
   } else {
     regras[inputRegra][1] = "";
+  }
+}
+
+function fecharElemento(){
+  if(config.elementOpened == undefined) return
+  else{
+    try {
+      const element = config.elementOpened
+      element.style.display = "none"
+      
+      config.elementOpened = undefined
+    } catch (error) {
+      console.log("Elemento não encontrado")
+    }
   }
 }
 
@@ -210,7 +226,21 @@ function trocarTeclado(i = null) {
   secoesTeclado[i || currentTeclado].style.display = "grid";
 }
 
+function toggleAtalhos(){
+  const bgAtalhos = document.getElementById('bg-card-atalhos')
+  
+  config.atalhoAberto = !config.atalhoAberto
+  config.atalhoAberto ? bgAtalhos.style.display = 'block' : bgAtalhos.style.display = 'none'
+
+  if(config.atalhoAberto){
+    config.elementOpened = bgAtalhos
+  }
+  
+}
+
 document.body.addEventListener("keydown", (e) =>{
+
+  console.log(e.key)
 
   if(tecladoOrganizado[0].includes(e.key)){
     if(e.target.classList.contains('regra-condicao') == false &&
@@ -224,10 +254,28 @@ document.body.addEventListener("keydown", (e) =>{
   } else {
 
     tecladoOrganizado[1].forEach(set =>{
-    if(e.target.classList.contains('regra-condicao') == false &&
-      e.target.classList.contains('regra-resultado') == false){
-      return
-    }
+
+      if(config.atalhoAberto == true && set.includes(e.key)){
+        try {
+          const element = document.getElementsByClassName("button-atalhos")[set[3]]
+          console.log(element)
+
+          element.classList.add("button-atalho-ativo")
+
+          setTimeout(() => {
+            element.classList.remove("button-atalho-ativo")
+          }, 200)
+
+          return
+        } catch (error) {
+          console.log("elemento não encontrado\n")
+        }
+      }
+
+      if(e.target.classList.contains('regra-condicao') == false &&
+        e.target.classList.contains('regra-resultado') == false){
+        return
+      }
       
       if(set.includes(e.key)){
         digitarRegra(set[1], set[2])
@@ -237,14 +285,39 @@ document.body.addEventListener("keydown", (e) =>{
     })
 
     tecladoOrganizado[2].forEach(set =>{
+
+      if(config.atalhoAberto == true && set.includes(e.key) &&
+         e.key !== "a" && e.key !== "Escape"){
+        try {
+          const element = document.getElementsByClassName("button-atalhos")[set[2]]
+          console.log(element)
+          element.classList.add("button-atalho-ativo")
+
+          setTimeout(() => {
+            element.classList.remove("button-atalho-ativo")
+          }, 200)
+
+          return
+        } catch (error) {
+          console.log("elemento não encontrado\n")
+        }
+      }
+
+      if(set.includes(e.key) && e.key == "a"){
+        toggleAtalhos()
+        return
+      }
+
+      if(set.includes(e.key) && e.key == "Escape"){
+        fecharElemento()
+        return
+      }
+      
       if(set.includes(e.key)){
-        (set[1])();
+        console.log(config.elementOpened)
+        (set[1])();        
         return
       }
     })
-
   }
-
-
-  
 })

@@ -12,8 +12,8 @@
   </head>
   <body>
     <div>
-      <input type="number" id="linhas" min="0" max="20"/>
-      <input type="number" id="colunas" min="0" max="20"/>
+      <input type="number" id="linhas" min="0" max="20"  placeholder="Linhas (i)"/>
+      <input type="number" id="colunas" min="0" max="20" placeholder="Colunas (j)"/>
       <button onclick="criarMatriz()">Enviar</button>
     </div>
     <br />
@@ -21,7 +21,7 @@
 
       <p>
         Atalhos: 
-        <button onclick="document.getElementById('bg-card-atalhos').style.display ='block'">Ver atalhos</button>
+        <button onclick="toggleAtalhos()">Ver atalhos</button>
       </p>
 
       <p>
@@ -130,11 +130,11 @@
       <div id="card-atalhos">
         <div>
           <h1>Atalhos</h1>
-          <button onclick="document.getElementById('bg-card-atalhos').style.display = 'none'">X</button>
+          <button onclick="toggleAtalhos()">X</button>
         </div>
         <hr>
         <h2>Símbolos</h2>
-        <ul>
+        <ul id="lista-atalhos-simbolos">
           <li>
             <button class="button-atalhos">p</button>
              - π</li>
@@ -153,16 +153,24 @@
         </ul>
         <hr>
         <h2>Comandos</h2>
-        <ul>
+        <ul id="lista-atalhos-comandos">
           <li>
-            <button class="button-atalhos">a</button>
+            <button class="button-atalhos"><img src="img/icon/delete_character.svg" width="12px" alt="X"/></button>
             - Apagar símbolo</li>
           <li>
-            <button class="button-atalhos">a</button>
+            <button class="button-atalhos">←</button>
+            <span>ou</span>
+            <button class="button-atalhos">→</button>
             - Trocar teclado</li>
           <li>
-            <button class="button-atalhos">a</button>
+            <button class="button-atalhos">&#8629;</button>
             - Criar Matriz</li>
+          <li>
+            <button class="button-atalhos">Esc</button>
+            - Fechar último elemento</li>
+          <li>
+            <button class="button-atalhos">a</button>
+            - Abrir/fechar atalhos</li>
         </ul>
       </div>
     </div>

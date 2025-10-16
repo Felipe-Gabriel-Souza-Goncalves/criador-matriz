@@ -7,3 +7,8 @@ div#container-regras input {
     border: 1px solid black;
     border-radius: 4px;
 }
+
+#linhas,
+#colunas{
+  width: 80px;
+}
