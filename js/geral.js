@@ -1,4 +1,6 @@
 const config = {
   atalhoAberto: false,
-  elementOpened: undefined
+  elementOpened: undefined,
+  valorPadrao: 1,
+  corPadrao: "#efefef"
 }

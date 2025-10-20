@@ -46,6 +46,27 @@ function criarMatriz() {
     document.getElementById("grid").innerHTML = "<strong>Linhas e colunas devem ser de 1 a 20</strong>"
     document.getElementById("grid").style.gridTemplateRows = `1fr`;
     document.getElementById("grid").style.gridTemplateColumns = `1fr`;
+
+    (linhas <= 0 || linhas > 20) ?  document.getElementById("linhas").focus() : document.getElementById("colunas").focus()
+
+    return
+  }
+
+  const regrasIgnorar = []
+
+  // Itera pelas regras, ignora as inválidas
+  regras.forEach((regra, i) => {
+    const cond = returnRule(1, 1, regra[0])
+    const resul = returnRule(1, 1, regra[1])
+
+    console.log("Condição:", regra[0], typeof cond)
+    console.log("Resultado:", regra[1], typeof resul)
+
+    if(typeof cond !== "boolean" || typeof resul != "number") regrasIgnorar.push(i); return
+  })
+
+  if(regras.length == regrasIgnorar.length){
+    document.getElementById("grid").innerHTML = "<strong>Todos os conjuntos de regras possuem erro</strong>";
     return
   }
 
@@ -58,15 +79,16 @@ function criarMatriz() {
       const div = document.createElement("div");
 
       // Valores / cores padrão
-      div.innerText = "1";
-      div.style.background = "#efefef";
+      div.innerText = config.valorPadrao;
+      div.style.background = config.corPadrao;
       
-      regras.forEach((regra) => {
+      regras.forEach((regra, k) => {
+        if(regrasIgnorar.includes(k)) return
+
         const pertence = returnRule(i, j, regra[0]);
         if (pertence) {
-          let valor = returnRule(i, j, regra[1]);
 
-          
+          let valor = returnRule(i, j, regra[1]);
 
           try {
             valor = parseFloat(valor)
@@ -80,14 +102,13 @@ function criarMatriz() {
               return 
             }
           } catch (error) {
+            document.getElementById("grid").innerHTML = "<strong>Erro na regra</strong>";
             console.log(error)
           }
 
           div.innerText = valor;
           div.style.background = regra[2];
 
-          // const widthDiv = window.getComputedStyle(div).getPropertyValue("width") 
-          
         }
       });
 
@@ -125,7 +146,7 @@ function apagarChar() {
 
   if(input.value === "") return
   
-  input.value = input.value.slice(0, (input.value.length - lengthOfChar[1])).trim();
+  input.value = input.value.slice(0, Math.max((input.value.length - lengthOfChar[1]), 1)).trim();
 
 
   if (isCondicao) {
@@ -240,25 +261,26 @@ function toggleAtalhos(){
 
 document.body.addEventListener("keydown", (e) =>{
 
-  console.log(e.key)
+  const tecla = (e.key.length == 1) ? e.key.toLocaleLowerCase() : e.key
+  // console.log(tecla)
 
-  if(tecladoOrganizado[0].includes(e.key)){
+  if(tecladoOrganizado[0].includes(tecla)){
     if(e.target.classList.contains('regra-condicao') == false &&
        e.target.classList.contains('regra-resultado') == false){
       return
     }
     
-    digitarRegra(e.key)
+    digitarRegra(tecla)
     return
 
   } else {
 
     tecladoOrganizado[1].forEach(set =>{
 
-      if(config.atalhoAberto == true && set.includes(e.key)){
+      if(config.atalhoAberto == true && set.includes(tecla)){
         try {
           const element = document.getElementsByClassName("button-atalhos")[set[3]]
-          console.log(element)
+          // console.log(element)
 
           element.classList.add("button-atalho-ativo")
 
@@ -277,7 +299,7 @@ document.body.addEventListener("keydown", (e) =>{
         return
       }
       
-      if(set.includes(e.key)){
+      if(set.includes(tecla)){
         digitarRegra(set[1], set[2])
         return
 
@@ -286,11 +308,11 @@ document.body.addEventListener("keydown", (e) =>{
 
     tecladoOrganizado[2].forEach(set =>{
 
-      if(config.atalhoAberto == true && set.includes(e.key) &&
-         e.key !== "a" && e.key !== "Escape"){
+      if(config.atalhoAberto == true && set.includes(tecla) &&
+        tecla !== "a" && tecla !== "Escape"){
         try {
           const element = document.getElementsByClassName("button-atalhos")[set[2]]
-          console.log(element)
+          // console.log(element)
           element.classList.add("button-atalho-ativo")
 
           setTimeout(() => {
@@ -303,18 +325,19 @@ document.body.addEventListener("keydown", (e) =>{
         }
       }
 
-      if(set.includes(e.key) && e.key == "a"){
+      if(set.includes(tecla) && tecla == "a"){
         toggleAtalhos()
         return
       }
 
-      if(set.includes(e.key) && e.key == "Escape"){
+      if(set.includes(tecla) && tecla == "Escape"){
         fecharElemento()
         return
       }
       
-      if(set.includes(e.key)){
-        console.log(config.elementOpened)
+      if(set.includes(tecla) && config.elementOpened == undefined){
+        // console.log("rodando", set[1])
+        
         (set[1])();        
         return
       }

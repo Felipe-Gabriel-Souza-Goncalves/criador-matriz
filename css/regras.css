@@ -12,3 +12,10 @@ div#container-regras input {
 #colunas{
   width: 80px;
 }
+
+@media (max-width: 500px) {
+  div#container-regras{
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

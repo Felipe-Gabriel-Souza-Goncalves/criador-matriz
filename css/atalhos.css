@@ -15,16 +15,47 @@
 #card-atalhos{
   min-width: 750px;
   max-width: 90vw;
-  max-height: 90vh;
-  overflow: auto;
+  /* max-height: 90vh; */
+  /* overflow: auto; */
   background-color: white;
   box-shadow: 4px 4px 0px 0px rgb(209, 209, 209);
   border-radius: 12px;
   padding: 32px 16px;
 }
+#card-atalhos ul li{
+  height: 42px;
+}
+#card-atalhos hr{
+  margin: 12px 0px;
+}
+#container-lista-atalhos{
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.button-atalhos,
+#card-atalhos button[onclick="toggleAtalhos()"]{
+  border: 0;
+  box-sizing: content-box;
+  font-size: 1.5em;
+  min-width: 35px;
+  min-height: 35px;
+  border-radius: 4px;
+  padding: 0;
+  /* box-shadow: 0px 2px 0px 2.5px gray; */
+  border: 2.5px solid gray;
+  border-top: 0;
+}
+
+#card-atalhos button[onclick="toggleAtalhos()"]{
+  border: 2.5px solid gray;
+  float: right;
+}
+
 
 .button-atalho-ativo{
   background-color: rgb(170, 170, 170) !important;
+  transform: translateY(2.5px);
+  border-bottom: 0;
 }
 
 /* #lista-atalhos-simbolos li:nth-of-type(1) .button-atalhos{

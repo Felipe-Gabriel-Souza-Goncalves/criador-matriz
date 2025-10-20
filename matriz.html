@@ -5,175 +5,208 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Matrizes</title>
 
-    <link rel="stylesheet" href="css/geral.css">
-    <link rel="stylesheet" href="css/matriz.css">
-    <link rel="stylesheet" href="css/regras.css">
-    <link rel="stylesheet" href="css/atalhos.css">
+    <link rel="stylesheet" href="css/geral.css" />
+    <link rel="stylesheet" href="css/matriz.css" />
+    <link rel="stylesheet" href="css/regras.css" />
+    <link rel="stylesheet" href="css/atalhos.css" />
   </head>
   <body>
-    <div>
-      <input type="number" id="linhas" min="0" max="20"  placeholder="Linhas (i)"/>
-      <input type="number" id="colunas" min="0" max="20" placeholder="Colunas (j)"/>
-      <button onclick="criarMatriz()">Enviar</button>
-    </div>
-    <br />
-    <div>
+    <header></header>
 
-      <p>
-        Atalhos: 
-        <button onclick="toggleAtalhos()">Ver atalhos</button>
-      </p>
+    <main>
+      <div>
+        <input
+          type="number"
+          id="linhas"
+          min="0"
+          max="20"
+          placeholder="Linhas (i)"
+        />
+        <input
+          type="number"
+          id="colunas"
+          min="0"
+          max="20"
+          placeholder="Colunas (j)"
+        />
+        <button onclick="criarMatriz()">Enviar</button>
+      </div>
+      <br />
+      <div>
+        <p>
+          Atalhos:
+          <button onclick="toggleAtalhos()">Ver atalhos</button>
+        </p>
 
-      <p>
-        Regras:
-        <button onclick="criarInputRegra()">Adicionar regra</button>
-      </p>
+        <p>
+          Regras:
+          <button onclick="criarInputRegra()">Adicionar regra</button>
+        </p>
 
-      <div id="container-regras">
-        <div id="regras-condicoes">
-          <!-- Campo para gerar novas condições -->
-          <input
-            type="text"
-            class="regra-condicao"
-            readonly
-            onfocus="isCondicao = true; inputRegra = 0"
-            placeholder="Ex: i>j"
+        <div id="container-regras">
+          <div id="regras-condicoes">
+            <!-- Campo para gerar novas condições -->
+            <input
+              type="text"
+              class="regra-condicao"
+              readonly
+              onfocus="isCondicao = true; inputRegra = 0"
+              placeholder="Ex: i>j"
+            />
+          </div>
 
-          />
-        </div>
+          <div id="regras-resultados">
+            <!-- Campo para gerar os resultados das condições -->
+            <input
+              type="text"
+              class="regra-resultado"
+              readonly
+              onfocus="isCondicao = false; inputRegra = 0"
+              placeholder="Ex: 2×i + 3"
+            />
+          </div>
 
-        <div id="regras-resultados">
-          <!-- Campo para gerar os resultados das condições -->
-          <input
-            type="text"
-            class="regra-resultado"
-            readonly
-            onfocus="isCondicao = false; inputRegra = 0"
-            placeholder="Ex: 2×i + 3"
-          />
-        </div>
-
-        <div id="regras-cores">
-          <input
-            type="color"
-            class="regra-cor"
-            onclick="inputRegra = 0"
-            onchange="regras[inputRegra][2] = cor[inputRegra].value"
-            value="#efefef"
-          />
+          <div id="regras-cores">
+            <input
+              type="color"
+              class="regra-cor"
+              onclick="inputRegra = 0"
+              onchange="regras[inputRegra][2] = cor[inputRegra].value"
+              value="#efefef"
+            />
+          </div>
         </div>
       </div>
-    </div>
 
-    <div id="grid"></div>
+      <div id="grid"></div>
 
-    <div id="teclado">
-      <strong><i>Usar radianos para trigonometria</i></strong>
-      <br><br>
+      <div id="teclado">
+        <strong><i>Usar radianos para trigonometria</i></strong>
+        <br /><br />
 
-      <div id="teclado-secao1">
-        <div onclick="digitarRegra('i')">i</div>
-        <div onclick="digitarRegra('j')">j</div>
-        <div onclick="limparRegra()">C</div>
-        <div onclick="apagarChar()"><img src="img/icon/delete_character.svg" width="30px" alt="X"/></div>
+        <div id="teclado-secao1">
+          <div onclick="digitarRegra('i')">i</div>
+          <div onclick="digitarRegra('j')">j</div>
+          <div onclick="limparRegra()">C</div>
+          <div onclick="apagarChar()">
+            <img src="img/icon/delete_character.svg" width="30px" alt="X" />
+          </div>
 
-        <div onclick="digitarRegra('7')">7</div>
-        <div onclick="digitarRegra('8')">8</div>
-        <div onclick="digitarRegra('9')">9</div>
-        <div onclick="digitarRegra('/')">&div;</div>
+          <div onclick="digitarRegra('7')">7</div>
+          <div onclick="digitarRegra('8')">8</div>
+          <div onclick="digitarRegra('9')">9</div>
+          <div onclick="digitarRegra('/')">&div;</div>
 
-        <div onclick="digitarRegra('4')">4</div>
-        <div onclick="digitarRegra('5')">5</div>
-        <div onclick="digitarRegra('6')">6</div>
-        <div onclick="digitarRegra('*')">&times;</div>
+          <div onclick="digitarRegra('4')">4</div>
+          <div onclick="digitarRegra('5')">5</div>
+          <div onclick="digitarRegra('6')">6</div>
+          <div onclick="digitarRegra('*')">&times;</div>
 
-        <div onclick="digitarRegra('1')">1</div>
-        <div onclick="digitarRegra('2')">2</div>
-        <div onclick="digitarRegra('3')">3</div>
-        <div onclick="digitarRegra('-')">&minus;</div>
+          <div onclick="digitarRegra('1')">1</div>
+          <div onclick="digitarRegra('2')">2</div>
+          <div onclick="digitarRegra('3')">3</div>
+          <div onclick="digitarRegra('-')">&minus;</div>
 
-        <div onclick="trocarTeclado(1)">&#8646;</div>
-        <div onclick="digitarRegra('0')">0</div>
-        <div onclick="digitarRegra('==', '=')">&equals;</div>
-        <div onclick="digitarRegra('+')">&plus;</div>
-      </div>
-
-      <div id="teclado-secao2">
-        <div onclick="digitarRegra('i')">i</div>
-        <div onclick="digitarRegra('j')">j</div>
-        <div onclick="limparRegra()">C</div>
-        <div onclick="apagarChar()"><img src="img/icon/delete_character.svg" width="30px" alt="X"/></div>
-
-        <div onclick="digitarRegra('>')">&gt;</div>
-        <div onclick="digitarRegra('<')">&lt;</div>
-        <div onclick="digitarRegra('Math.PI', 'π')">&pi;</div>
-        <div onclick="digitarRegra('/')">&div;</div>
-
-        <div onclick="digitarRegra('(')">&lpar;</div>
-        <div onclick="digitarRegra(')')">&rpar;</div>
-        <div onclick="digitarRegra('Math.E', 'e')">e</div>
-        <div onclick="digitarRegra('*')">&times;</div>
-
-        <div onclick="digitarRegra('Math.sin(', 'sen(')">sen</div>
-        <div onclick="digitarRegra('Math.cos(', 'cos(')">cos</div>
-        <div onclick="digitarRegra('Math.tan(', 'tg(')">tg</div>
-        <div onclick="digitarRegra('-')">&minus;</div>
-
-        <div onclick="trocarTeclado(0)">&#8646;</div>
-        <div onclick="digitarRegra('0')">0</div>
-        <div onclick="digitarRegra('==', '=')">&equals;</div>
-        <div onclick="digitarRegra('+')">&plus;</div>
-      </div>
-    </div>
-
-    <div id="bg-card-atalhos">
-      <div id="card-atalhos">
-        <div>
-          <h1>Atalhos</h1>
-          <button onclick="toggleAtalhos()">X</button>
+          <div onclick="trocarTeclado(1)">&#8646;</div>
+          <div onclick="digitarRegra('0')">0</div>
+          <div onclick="digitarRegra('==', '=')">&equals;</div>
+          <div onclick="digitarRegra('+')">&plus;</div>
         </div>
-        <hr>
-        <h2>Símbolos</h2>
-        <ul id="lista-atalhos-simbolos">
-          <li>
-            <button class="button-atalhos">p</button>
-             - π</li>
-          <li>
-            <button class="button-atalhos">e</button>
-             - e</li>
-          <li>
-            <button class="button-atalhos">s</button>
-             - Seno</li>
-          <li>
-            <button class="button-atalhos">c</button>
-             - Cosseno</li>
-          <li>
-            <button class="button-atalhos">t</button>
-             - Tangente</li>
-        </ul>
-        <hr>
-        <h2>Comandos</h2>
-        <ul id="lista-atalhos-comandos">
-          <li>
-            <button class="button-atalhos"><img src="img/icon/delete_character.svg" width="12px" alt="X"/></button>
-            - Apagar símbolo</li>
-          <li>
-            <button class="button-atalhos">←</button>
-            <span>ou</span>
-            <button class="button-atalhos">→</button>
-            - Trocar teclado</li>
-          <li>
-            <button class="button-atalhos">&#8629;</button>
-            - Criar Matriz</li>
-          <li>
-            <button class="button-atalhos">Esc</button>
-            - Fechar último elemento</li>
-          <li>
-            <button class="button-atalhos">a</button>
-            - Abrir/fechar atalhos</li>
-        </ul>
+
+        <div id="teclado-secao2">
+          <div onclick="digitarRegra('i')">i</div>
+          <div onclick="digitarRegra('j')">j</div>
+          <div onclick="limparRegra()">C</div>
+          <div onclick="apagarChar()">
+            <img src="img/icon/delete_character.svg" width="30px" alt="X" />
+          </div>
+
+          <div onclick="digitarRegra('>')">&gt;</div>
+          <div onclick="digitarRegra('<')">&lt;</div>
+          <div onclick="digitarRegra('Math.PI', 'π')">&pi;</div>
+          <div onclick="digitarRegra('/')">&div;</div>
+
+          <div onclick="digitarRegra('(')">&lpar;</div>
+          <div onclick="digitarRegra(')')">&rpar;</div>
+          <div onclick="digitarRegra('Math.E', 'e')">e</div>
+          <div onclick="digitarRegra('*')">&times;</div>
+
+          <div onclick="digitarRegra('Math.sin(', 'sen(')">sen</div>
+          <div onclick="digitarRegra('Math.cos(', 'cos(')">cos</div>
+          <div onclick="digitarRegra('Math.tan(', 'tg(')">tg</div>
+          <div onclick="digitarRegra('-')">&minus;</div>
+
+          <div onclick="trocarTeclado(0)">&#8646;</div>
+          <div onclick="digitarRegra('0')">0</div>
+          <div onclick="digitarRegra('==', '=')">&equals;</div>
+          <div onclick="digitarRegra('+')">&plus;</div>
+        </div>
       </div>
-    </div>
+
+      <div id="bg-card-atalhos">
+        <div id="card-atalhos">
+          <div>
+            <button onclick="toggleAtalhos()">X</button>
+            <h1>Atalhos</h1>
+          </div>
+          
+          <br><hr />
+          <div id="container-lista-atalhos">
+            <h2>Símbolos</h2>
+            <ul id="lista-atalhos-simbolos">
+              <li>
+                <button class="button-atalhos">p</button>
+                - π
+              </li>
+              <li>
+                <button class="button-atalhos">e</button>
+                - e
+              </li>
+              <li>
+                <button class="button-atalhos">s</button>
+                - Seno
+              </li>
+              <li>
+                <button class="button-atalhos">c</button>
+                - Cosseno
+              </li>
+              <li>
+                <button class="button-atalhos">t</button>
+                - Tangente
+              </li>
+            </ul>
+            <br><hr />
+            <h2>Comandos</h2>
+            <ul id="lista-atalhos-comandos">
+              <li>
+                <button class="button-atalhos">
+                  <img src="img/icon/delete_character.svg" width="12px" alt="X" />
+                </button>
+                - Apagar símbolo
+              </li>
+              <li>
+                <button class="button-atalhos">←</button>
+                <span>ou</span>
+                <button class="button-atalhos">→</button>
+                - Trocar teclado
+              </li>
+              <li>
+                <button class="button-atalhos">&#8629;</button>
+                - Criar Matriz
+              </li>
+              <li>
+                <button class="button-atalhos">Esc</button>
+                - Fechar último elemento
+              </li>
+              <li>
+                <button class="button-atalhos">a</button>
+                - Abrir/fechar atalhos
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <script src="js/geral.js"></script>
     <script src="js/matriz.js"></script>
