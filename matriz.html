@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Matrizes</title>
 
+    <link rel="shortcut icon" href="img/favicon.svg" type="image/x-icon">
+
     <link rel="stylesheet" href="css/geral.css" />
     <link rel="stylesheet" href="css/matriz.css" />
     <link rel="stylesheet" href="css/regras.css" />
@@ -12,10 +14,13 @@
   </head>
   <body>
     <header>
-      <h1>
-        Matrizes
-      </h1>
+      <!-- <span onclick="document.querySelector('aside').style.left='0px'">&equiv;</span> -->
+      <h1>Matrizes</h1>
     </header>
+
+    <aside>
+
+    </aside>
 
     <main>
       <div>
@@ -49,8 +54,7 @@
         </p>
 
         <div id="container-regras">
-          <div id="regras-condicoes">
-            <!-- Campo para gerar novas condições -->
+          <div class="conjunto-regras">
             <input
               type="text"
               class="regra-condicao"
@@ -58,10 +62,6 @@
               onfocus="isCondicao = true; inputRegra = 0"
               placeholder="Ex: i>j"
             />
-          </div>
-
-          <div id="regras-resultados">
-            <!-- Campo para gerar os resultados das condições -->
             <input
               type="text"
               class="regra-resultado"
@@ -69,9 +69,6 @@
               onfocus="isCondicao = false; inputRegra = 0"
               placeholder="Ex: 2×i + 3"
             />
-          </div>
-
-          <div id="regras-cores">
             <input
               type="color"
               class="regra-cor"
@@ -200,7 +197,7 @@
                 - Trocar teclado
               </li>
               <li>
-                <button class="button-atalhos">&#8629;</button>
+                <button class="button-atalhos">/</button>
                 - Criar Matriz
               </li>
               <li>

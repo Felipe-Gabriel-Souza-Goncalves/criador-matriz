@@ -1,4 +1,6 @@
 div#container-regras{
+  display: flex;
+  flex-direction: column;
   margin: 8px 4px;
 }
 div#container-regras input {
@@ -8,9 +10,20 @@ div#container-regras input {
     border-radius: 4px;
 }
 
+.conjunto-regras{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 2px 0px;
+
+}
+
+
 #linhas,
 #colunas{
-  width: 80px;
+  width: 100px;
 }
 
 @media (max-width: 500px) {

@@ -27,7 +27,7 @@ const tecladoOrganizado = [
     ["Backspace", apagarChar, 6],
     ["ArrowLeft", trocarTeclado, 7],
     ["ArrowRight", trocarTeclado, 8],
-    ["Enter", criarMatriz, 9],
+    ["/", criarMatriz, 9],
     ["Escape", fecharElemento, 10],
     ["a", toggleAtalhos, 11],
   ]
@@ -133,28 +133,27 @@ function digitarRegra(char, charShow = null) {
     document.getElementsByClassName("regra-resultado")[inputRegra].value += charShow || char;
   }
 
-  const input = document.getElementsByClassName(`regra-${isCondicao ? "condicao" : "resultado"}`)[inputRegra]
+  const classe = (isCondicao ? "regra-condicao" : "regra-resultado")
+  const input = document.getElementsByClassName(classe)[inputRegra]
 
-  lengthOp.push([char.length, (charShow ? charShow.length : char.length), isCondicao, inputRegra])
-
+  lengthOp.push([char.length, (charShow ? charShow.length : char.length), input])
 }
 
 
 
 function apagarChar() {
 
-  const classe = lengthOp[lengthOp.length - 1][2] ? "regra-condicao" : "regra-resultado";
-  const input = document.getElementsByClassName(classe)[lengthOp[lengthOp.length - 1][3]];
-  const lengthOfChar = lengthOp[lengthOp.length - 1]
+  if(lengthOp.length === 0) return
+
+  const [lengthEval, lengthInput, input] = [...lengthOp[lengthOp.length - 1]]
 
   if(input.value === "") return
-  
-  input.value = input.value.slice(0, (input.value.length - lengthOfChar[1])).trim();
+  input.value = input.value.slice(0, (input.value.length - lengthInput)).trim();
 
   if (isCondicao) {
-    regras[inputRegra][0] = regras[inputRegra][0].slice(0, regras[inputRegra][0].length - lengthOfChar[0])
+    regras[inputRegra][0] = regras[inputRegra][0].slice(0, regras[inputRegra][0].length - lengthEval)
   } else {
-    regras[inputRegra][1] = regras[inputRegra][1].slice(0, regras[inputRegra][1].length - lengthOfChar[0])
+    regras[inputRegra][1] = regras[inputRegra][1].slice(0, regras[inputRegra][1].length - lengthEval)
   }
 
   lengthOp.pop()
@@ -219,9 +218,15 @@ function criarInputRegra() {
     "regras[inputRegra][2] = cor[inputRegra].value"
   );
 
-  document.getElementById("regras-condicoes").appendChild(novaCondicao);
-  document.getElementById("regras-resultados").appendChild(novoResultado);
-  document.getElementById("regras-cores").appendChild(novaCor);
+  const div = document.createElement("div")
+  div.classList.add("conjunto-regras")
+
+
+  div.appendChild(novaCondicao);
+  div.appendChild(novoResultado);
+  div.appendChild(novaCor);
+
+  document.getElementById("container-regras").appendChild(div)
 }
 
 function returnRule(i = null, j = null, rule) {
@@ -307,7 +312,7 @@ document.body.addEventListener("keydown", (e) =>{
     tecladoOrganizado[2].forEach((set, i) =>{
 
       if(config.atalhoAberto == true && set.includes(tecla) && tecla !== "a" && tecla !== "Escape"){
-        
+
         try {
           const element = document.getElementsByClassName("button-atalhos")[set[2]]
           element.classList.add("button-atalho-ativo")

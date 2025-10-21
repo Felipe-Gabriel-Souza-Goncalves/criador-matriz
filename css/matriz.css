@@ -18,18 +18,6 @@
   background-color: #dedede;
 }
 
-#container-regras {
-  display: flex;
-  gap: 12px;
-}
-
-#regras-condicoes,
-#regras-resultados,
-#regras-cores {
-  display: flex;
-  flex-direction: column;
-}
-
 #teclado{
   margin: 8px 4px;
   justify-items: center;
@@ -40,7 +28,7 @@
 #teclado-secao1,
 #teclado-secao2 {
   display: grid;
-  grid-template-columns: repeat(4, minmax(60px, 100px));
+  grid-template-columns: repeat(4, minmax(60px, 70px));
   gap: 6px;
   align-content: center;
 
