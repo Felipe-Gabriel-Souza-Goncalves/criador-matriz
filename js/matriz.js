@@ -23,16 +23,15 @@ const tecladoOrganizado = [
   ],
 
   [
-    ["Backspace", apagarChar, 5],
-    ["ArrowLeft", trocarTeclado, 6],
-    ["ArrowRight", trocarTeclado, 7],
-    ["Enter", criarMatriz, 8],
-    ["Escape", fecharElemento, 9],
-    ["a", toggleAtalhos, 10]
+    ["Delete", limparRegra, 5],
+    ["Backspace", apagarChar, 6],
+    ["ArrowLeft", trocarTeclado, 7],
+    ["ArrowRight", trocarTeclado, 8],
+    ["Enter", criarMatriz, 9],
+    ["Escape", fecharElemento, 10],
+    ["a", toggleAtalhos, 11],
   ]
 ];
-
-
 
 const condicao = document.getElementsByClassName("regra-condicao");
 const resultado = document.getElementsByClassName("regra-resultado");
@@ -134,7 +133,9 @@ function digitarRegra(char, charShow = null) {
     document.getElementsByClassName("regra-resultado")[inputRegra].value += charShow || char;
   }
 
-  lengthOp.push([char.length, (charShow ? charShow.length : char.length)])
+  const input = document.getElementsByClassName(`regra-${isCondicao ? "condicao" : "resultado"}`)[inputRegra]
+
+  lengthOp.push([char.length, (charShow ? charShow.length : char.length), isCondicao, inputRegra])
 
 }
 
@@ -142,18 +143,13 @@ function digitarRegra(char, charShow = null) {
 
 function apagarChar() {
 
-  console.log(lengthOp)
-
-  const classe = isCondicao ? "regra-condicao" : "regra-resultado";
-  const input = document.getElementsByClassName(classe)[inputRegra];
+  const classe = lengthOp[lengthOp.length - 1][2] ? "regra-condicao" : "regra-resultado";
+  const input = document.getElementsByClassName(classe)[lengthOp[lengthOp.length - 1][3]];
   const lengthOfChar = lengthOp[lengthOp.length - 1]
-
-  console.log(lengthOfChar)
 
   if(input.value === "") return
   
-  input.value = input.value.slice(0, Math.max((input.value.length - lengthOfChar[1]), 1)).trim();
-
+  input.value = input.value.slice(0, (input.value.length - lengthOfChar[1])).trim();
 
   if (isCondicao) {
     regras[inputRegra][0] = regras[inputRegra][0].slice(0, regras[inputRegra][0].length - lengthOfChar[0])
@@ -266,9 +262,7 @@ function toggleAtalhos(){
 }
 
 document.body.addEventListener("keydown", (e) =>{
-
   const tecla = (e.key.length == 1) ? e.key.toLocaleLowerCase() : e.key
-  // console.log(tecla)
 
   if(tecladoOrganizado[0].includes(tecla)){
     if(e.target.classList.contains('regra-condicao') == false &&
@@ -286,8 +280,6 @@ document.body.addEventListener("keydown", (e) =>{
       if(config.atalhoAberto == true && set.includes(tecla)){
         try {
           const element = document.getElementsByClassName("button-atalhos")[set[3]]
-          // console.log(element)
-
           element.classList.add("button-atalho-ativo")
 
           setTimeout(() => {
@@ -312,13 +304,12 @@ document.body.addEventListener("keydown", (e) =>{
       }
     })
 
-    tecladoOrganizado[2].forEach(set =>{
+    tecladoOrganizado[2].forEach((set, i) =>{
 
-      if(config.atalhoAberto == true && set.includes(tecla) &&
-        tecla !== "a" && tecla !== "Escape"){
+      if(config.atalhoAberto == true && set.includes(tecla) && tecla !== "a" && tecla !== "Escape"){
+        
         try {
           const element = document.getElementsByClassName("button-atalhos")[set[2]]
-          // console.log(element)
           element.classList.add("button-atalho-ativo")
 
           setTimeout(() => {
@@ -331,19 +322,13 @@ document.body.addEventListener("keydown", (e) =>{
         }
       }
 
-      if(set.includes(tecla) && tecla == "a"){
+      if(set[0] == tecla && tecla == "a"){
         toggleAtalhos()
-        return
-      }
 
-      if(set.includes(tecla) && tecla == "Escape"){
+      } else if(set[0] == tecla && tecla == "Escape"){
         fecharElemento()
-        return
-      }
-      
-      if(set.includes(tecla) && config.elementOpened == undefined){
-        // console.log("rodando", set[1])
-        
+
+      } else if(set.includes(tecla) && config.elementOpened == undefined){
         (set[1])();        
         return
       }

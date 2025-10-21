@@ -32,13 +32,12 @@
 }
 .button-atalhos,
 #card-atalhos button[onclick="toggleAtalhos()"]{
-  border: 0;
-  box-sizing: content-box;
+  box-sizing: border-box;
   font-size: 1.5em;
   min-width: 35px;
   min-height: 35px;
   border-radius: 4px;
-  padding: 0;
+  padding: 0 12px;
   border: 2.5px solid gray;
   border-top: 0;
 }

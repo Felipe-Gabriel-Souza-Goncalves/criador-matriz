@@ -1,4 +1,4 @@
-# Versão atual: 1.1
+# Versão atual: 1.3
 
 (dd/mm/yyyy)
 
