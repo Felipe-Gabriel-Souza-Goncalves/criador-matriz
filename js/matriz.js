@@ -60,6 +60,7 @@ function criarMatriz() {
       const cond = returnRule(1, 1, regra[0])
       const resul = returnRule(1, 1, regra[1])
 
+      // console.log(cond, typeof cond, resul, typeof resul)
       if(typeof cond !== "boolean" || typeof resul != "number") regrasIgnorar.push(i); return
     })
     
@@ -74,13 +75,19 @@ function criarMatriz() {
   document.getElementById("grid").style.gridTemplateColumns = `repeat(${colunas}, minmax(${200 / colunas}px, 1fr))`;
   document.getElementById("grid").innerHTML = "";
 
+  const matrizGerada = []
+
   for (let i = 1; i <= linhas; i++) {
+
+    matrizGerada.push([])
+    
     for (let j = 1; j <= colunas; j++) {
       const div = document.createElement("div");
 
       // Valores / cores padrão
       div.innerText = config.valorPadrao;
       div.style.background = config.corPadrao;
+      let valor = config.valorPadrao
       
       regras.forEach((regra, k) => {
         if(regrasIgnorar.includes(k)) return
@@ -88,7 +95,7 @@ function criarMatriz() {
         const pertence = returnRule(i, j, regra[0]);
         if (pertence) {
 
-          let valor = returnRule(i, j, regra[1]);
+          valor = returnRule(i, j, regra[1]);
 
           try {
             valor = parseFloat(valor)
@@ -112,9 +119,14 @@ function criarMatriz() {
         }
       });
 
+      console.log(matrizGerada)
+      matrizGerada[i - 1].push(valor)
+
       document.getElementById("grid").appendChild(div);
     }
   }
+
+  ultimaMatriz = structuredClone(matrizGerada)
 }
 
 function digitarRegra(char, charShow = null) {
@@ -231,7 +243,17 @@ function criarInputRegra() {
 
 function returnRule(i = null, j = null, rule) {
   try {
-    const resultado = eval(rule);
+    let resultado = eval(rule);
+
+    if(resultado == undefined){
+      rule.replaceAll('i', i)
+      rule.replaceAll('j', j)
+      
+      resultado = eval(rule)
+    }
+    if(resultado == undefined) throw new Error("Resultado undefined")
+    
+
     return resultado;
   } catch (error) {
     console.log(resultado);
@@ -328,6 +350,7 @@ document.body.addEventListener("keydown", (e) =>{
       }
 
       if(set[0] == tecla && tecla == "a"){
+        fecharElemento()
         toggleAtalhos()
 
       } else if(set[0] == tecla && tecla == "Escape"){
