@@ -15,8 +15,6 @@
 #card-atalhos{
   min-width: 750px;
   max-width: 90vw;
-  /* max-height: 90vh; */
-  /* overflow: auto; */
   background-color: white;
   box-shadow: 4px 4px 0px 0px rgb(209, 209, 209);
   border-radius: 12px;
@@ -41,7 +39,6 @@
   min-height: 35px;
   border-radius: 4px;
   padding: 0;
-  /* box-shadow: 0px 2px 0px 2.5px gray; */
   border: 2.5px solid gray;
   border-top: 0;
 }
@@ -50,9 +47,17 @@
   border: 2.5px solid gray;
   float: right;
 }
+#card-atalhos button[onclick="toggleAtalhos()"]:hover{
+  background-color: rgb(216, 216, 216) !important
+}
+#card-atalhos button[onclick="toggleAtalhos()"]:active{
+  background-color: rgb(180, 180, 180) !important
+}
 
 
-.button-atalho-ativo{
+
+.button-atalho-ativo,
+.button-atalhos:active{
   background-color: rgb(170, 170, 170) !important;
   transform: translateY(2.5px);
   border-bottom: 0;

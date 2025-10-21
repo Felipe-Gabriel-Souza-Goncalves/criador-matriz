@@ -55,20 +55,21 @@ function criarMatriz() {
   const regrasIgnorar = []
 
   // Itera pelas regras, ignora as inválidas
-  regras.forEach((regra, i) => {
-    const cond = returnRule(1, 1, regra[0])
-    const resul = returnRule(1, 1, regra[1])
+  if(regras[0].length !== 0){  
 
-    console.log("Condição:", regra[0], typeof cond)
-    console.log("Resultado:", regra[1], typeof resul)
+    regras.forEach((regra, i) => {
+      const cond = returnRule(1, 1, regra[0])
+      const resul = returnRule(1, 1, regra[1])
 
-    if(typeof cond !== "boolean" || typeof resul != "number") regrasIgnorar.push(i); return
-  })
-
-  if(regras.length == regrasIgnorar.length){
-    document.getElementById("grid").innerHTML = "<strong>Todos os conjuntos de regras possuem erro</strong>";
-    return
+      if(typeof cond !== "boolean" || typeof resul != "number") regrasIgnorar.push(i); return
+    })
+    
+    if(regras.length == regrasIgnorar.length){
+      document.getElementById("grid").innerHTML = "<strong>Todos os conjuntos de regras possuem erro</strong>";
+      return
+    }
   }
+
 
   document.getElementById("grid").style.gridTemplateRows = `repeat(${linhas}, minmax(${200 / linhas}px, 1fr))`;
   document.getElementById("grid").style.gridTemplateColumns = `repeat(${colunas}, minmax(${200 / colunas}px, 1fr))`;
@@ -140,9 +141,14 @@ function digitarRegra(char, charShow = null) {
 
 
 function apagarChar() {
+
+  console.log(lengthOp)
+
   const classe = isCondicao ? "regra-condicao" : "regra-resultado";
   const input = document.getElementsByClassName(classe)[inputRegra];
   const lengthOfChar = lengthOp[lengthOp.length - 1]
+
+  console.log(lengthOfChar)
 
   if(input.value === "") return
   

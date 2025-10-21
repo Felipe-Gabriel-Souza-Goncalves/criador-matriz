@@ -68,3 +68,17 @@
 
   color: white;
 }
+
+.input-matriz-personalizada{
+  width: 100%;
+  border: 0;
+  outline: 0;
+  text-align: center;
+  background: transparent;
+  border-bottom: #bbb;
+  color: black;
+}
+
+.input-matriz-personalizada:focus{
+  border-bottom: #777;
+}
