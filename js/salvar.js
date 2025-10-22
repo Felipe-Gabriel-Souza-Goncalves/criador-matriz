@@ -25,7 +25,7 @@ function salvarMatriz(){
         determinante: undefined,
     })
 
-    console.log(matrizesSalvas)
+    alert("Matriz salva com sucesso")
 }
 
 function compararMatriz(mat1, mat2){
