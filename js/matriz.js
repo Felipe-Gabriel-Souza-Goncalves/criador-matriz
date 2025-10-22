@@ -11,6 +11,7 @@ const tecladoOrganizado = [
    "(", ")", ">", "<", ".",
    "i", "j", "+", "-", 
   ],
+  
   [
     ["/", "/", "÷"], 
     ["*", "*", "×"], 
@@ -184,6 +185,37 @@ function limparRegra() {
   }
 }
 
+function limparTodasRegras(){
+  document.getElementById("container-regras").innerHTML = `
+            <div class="conjunto-regras">
+              <input
+                type="text"
+                class="regra-condicao"
+                readonly
+                onfocus="isCondicao = true; inputRegra = 0"
+                placeholder="Ex: i>j"
+              />
+              <input
+                type="text"
+                class="regra-resultado"
+                readonly
+                onfocus="isCondicao = false; inputRegra = 0"
+                placeholder="Ex: 2×i + 3"
+              />
+              <input
+                type="color"
+                class="regra-cor"
+                onclick="inputRegra = 0"
+                onchange="regras[inputRegra][2] = cor[inputRegra].value"
+                value="#efefef"
+              />
+            </div>
+          `
+  lengthOp = []
+  regras = [[]]
+  inputRegra = 0
+}
+
 function fecharElemento(){
   if(config.elementOpened == undefined) return
   else{
@@ -214,7 +246,9 @@ function criarInputRegra() {
   const novaCor = document.createElement("input");
 
   novaCondicao.readOnly = true;
+  novaCondicao.placeholder = "Ex: i>j"
   novoResultado.readOnly = true;
+  novoResultado.placeholder = "Ex: 2×i + 3"
   novaCor.type = "color";
 
   novaCondicao.classList.add("regra-condicao");
@@ -229,6 +263,7 @@ function criarInputRegra() {
     "onchange",
     "regras[inputRegra][2] = cor[inputRegra].value"
   );
+  novaCor.value = "#efefef"
 
   const div = document.createElement("div")
   div.classList.add("conjunto-regras")

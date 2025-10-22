@@ -5,21 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Matrizes</title>
 
-    <link rel="shortcut icon" href="img/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon.svg" type="image/x-icon" />
 
     <link rel="stylesheet" href="css/geral.css" />
     <link rel="stylesheet" href="css/matriz.css" />
     <link rel="stylesheet" href="css/regras.css" />
     <link rel="stylesheet" href="css/atalhos.css" />
+    <link rel="stylesheet" href="css/aside.css" />
   </head>
   <body>
     <header>
-      <!-- <span onclick="document.querySelector('aside').style.left='0px'">&equiv;</span> -->
+      <span onclick="document.querySelector('aside').style.left='0px'"
+        >&equiv;</span
+      >
       <h1>Matrizes</h1>
     </header>
 
-    <aside>
+    <nav>
+      <button>Minhas matrizes</button>
+      <button>Soma</button>
+      <button>Subtração</button>
+      <button>Multiplicação</button>
+      <button>Determinantes</button>
+    </nav>
 
+    <aside>
+      <button
+        onclick="document.querySelector('aside').style.left='-300px'"
+        id="btn-fechar-aside"
+      >
+        X
+      </button>
     </aside>
 
     <main>
@@ -52,6 +68,7 @@
         <p>
           Regras:
           <button onclick="criarInputRegra()">Adicionar regra</button>
+          <button onclick="limparTodasRegras()">Limpar regras</button>
         </p>
 
         <div id="container-regras">
@@ -152,8 +169,9 @@
             <button onclick="toggleAtalhos()">X</button>
             <h1>Atalhos</h1>
           </div>
-          
-          <br><hr />
+
+          <br />
+          <hr />
           <div id="container-lista-atalhos">
             <h2>Símbolos</h2>
             <ul id="lista-atalhos-simbolos">
@@ -178,7 +196,8 @@
                 - Tangente
               </li>
             </ul>
-            <br><hr />
+            <br />
+            <hr />
             <h2>Comandos</h2>
             <ul id="lista-atalhos-comandos">
               <li>
