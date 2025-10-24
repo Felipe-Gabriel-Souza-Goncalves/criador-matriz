@@ -4,36 +4,6 @@ let currentTeclado = 0
 let inputRegra = 0;
 let isCondicao = true;
 
-const tecladoOrganizado = [
-  [
-   "1", "2", "3", "4", "5", 
-   "6", "7", "8", "9", "0", 
-   "(", ")", ">", "<", ".",
-   "i", "j", "+", "-", 
-  ],
-  
-  [
-    ["/", "/", "÷"], 
-    ["*", "*", "×"], 
-    ["=", "==", "="], 
-    ["p", "Math.PI", "π", 0], 
-    ["e", "Math.E", "e", 1], 
-    ["s", "Math.sin(", "sen(", 2], 
-    ["c", "Math.cos(", "cos(", 3], 
-    ["t", "Math.tan(", "tg(", 4], 
-  ],
-
-  [
-    ["Delete", limparRegra, 5],
-    ["Backspace", apagarChar, 6],
-    ["ArrowLeft", trocarTeclado, 7],
-    ["ArrowRight", trocarTeclado, 8],
-    ["/", criarMatriz, 9],
-    ["Escape", fecharElemento, 10],
-    ["a", toggleAtalhos, 11],
-  ]
-];
-
 const condicao = document.getElementsByClassName("regra-condicao");
 const resultado = document.getElementsByClassName("regra-resultado");
 const cor = document.getElementsByClassName("regra-cor");
@@ -120,7 +90,6 @@ function criarMatriz() {
         }
       });
 
-      console.log(matrizGerada)
       matrizGerada[i - 1].push(valor)
 
       document.getElementById("grid").appendChild(div);
@@ -128,31 +97,8 @@ function criarMatriz() {
   }
 
   ultimaMatriz = structuredClone(matrizGerada)
+  console.log("ultima", ultimaMatriz)
 }
-
-function digitarRegra(char, charShow = null) {
-  if (isCondicao == true) {
-    if (!regras[inputRegra][0]) regras[inputRegra][0] = "";
-    regras[inputRegra][0] += char;
-
-    // Atualizar elemento
-    document.getElementsByClassName("regra-condicao")[inputRegra].value += charShow || char;
-
-  } else {
-    if (!regras[inputRegra][1]) regras[inputRegra][1] = "";
-    regras[inputRegra][1] += char;
-
-    // Atualizar elemento
-    document.getElementsByClassName("regra-resultado")[inputRegra].value += charShow || char;
-  }
-
-  const classe = (isCondicao ? "regra-condicao" : "regra-resultado")
-  const input = document.getElementsByClassName(classe)[inputRegra]
-
-  lengthOp.push([char.length, (charShow ? charShow.length : char.length), input])
-}
-
-
 
 function apagarChar() {
 
@@ -172,49 +118,6 @@ function apagarChar() {
   lengthOp.pop()
 }
 
-function limparRegra() {
-  const classe = isCondicao ? "regra-condicao" : "regra-resultado";
-  const input = document.getElementsByClassName(classe)[inputRegra];
-
-  input.value = "";
-
-  if (isCondicao) {
-    regras[inputRegra][0] = "";
-  } else {
-    regras[inputRegra][1] = "";
-  }
-}
-
-function limparTodasRegras(){
-  document.getElementById("container-regras").innerHTML = `
-            <div class="conjunto-regras">
-              <input
-                type="text"
-                class="regra-condicao"
-                readonly
-                onfocus="isCondicao = true; inputRegra = 0"
-                placeholder="Ex: i>j"
-              />
-              <input
-                type="text"
-                class="regra-resultado"
-                readonly
-                onfocus="isCondicao = false; inputRegra = 0"
-                placeholder="Ex: 2×i + 3"
-              />
-              <input
-                type="color"
-                class="regra-cor"
-                onclick="inputRegra = 0"
-                onchange="regras[inputRegra][2] = cor[inputRegra].value"
-                value="#efefef"
-              />
-            </div>
-          `
-  lengthOp = []
-  regras = [[]]
-  inputRegra = 0
-}
 
 function fecharElemento(){
   if(config.elementOpened == undefined) return
@@ -230,86 +133,7 @@ function fecharElemento(){
   }
 }
 
-function criarInputRegra() {
-  const ultimaCondicao = condicao[condicao.length - 1].value;
-  const ultimoResultado = resultado[resultado.length - 1].value;
 
-  if (!ultimaCondicao.trim() || !ultimoResultado.trim()) {
-    document.getElementById("grid").innerHTML = "<strong>Alguma condição vazia</strong>";
-    return;
-  }
-
-  regras.push([]);
-
-  const novaCondicao = document.createElement("input");
-  const novoResultado = document.createElement("input");
-  const novaCor = document.createElement("input");
-
-  novaCondicao.readOnly = true;
-  novaCondicao.placeholder = "Ex: i>j"
-  novoResultado.readOnly = true;
-  novoResultado.placeholder = "Ex: 2×i + 3"
-  novaCor.type = "color";
-
-  novaCondicao.classList.add("regra-condicao");
-  novoResultado.classList.add("regra-resultado");
-  novaCor.classList.add("regra-cor");
-
-  novaCondicao.setAttribute("onfocus", `isCondicao = true; inputRegra = ${regras.length - 1}`);
-  novoResultado.setAttribute("onfocus", `isCondicao = false; inputRegra = ${regras.length - 1}`);
-
-  novaCor.setAttribute("onclick", `inputRegra = ${regras.length - 1}`);
-  novaCor.setAttribute(
-    "onchange",
-    "regras[inputRegra][2] = cor[inputRegra].value"
-  );
-  novaCor.value = "#efefef"
-
-  const div = document.createElement("div")
-  div.classList.add("conjunto-regras")
-
-
-  div.appendChild(novaCondicao);
-  div.appendChild(novoResultado);
-  div.appendChild(novaCor);
-
-  document.getElementById("container-regras").appendChild(div)
-}
-
-function returnRule(i = null, j = null, rule) {
-  try {
-    let resultado = eval(rule);
-
-    if(resultado == undefined){
-      rule.replaceAll('i', i)
-      rule.replaceAll('j', j)
-      
-      resultado = eval(rule)
-    }
-    if(resultado == undefined) throw new Error("Resultado undefined")
-    
-
-    return resultado;
-  } catch (error) {
-    console.log(resultado);
-  }
-}
-
-function trocarTeclado(i = null) {
-
-  if(i == null){
-    currentTeclado = (currentTeclado + 1) % 2
-  }
-
-  const secoesTeclado = document.querySelectorAll(
-    "div[id^='teclado-secao']"
-  );
-  for (let i = 0; i < secoesTeclado.length; i++) {
-    secoesTeclado[i].style.display = "none";
-  }
-
-  secoesTeclado[i || currentTeclado].style.display = "grid";
-}
 
 function toggleAtalhos(){
   const bgAtalhos = document.getElementById('bg-card-atalhos')
@@ -322,79 +146,3 @@ function toggleAtalhos(){
   }
   
 }
-
-document.body.addEventListener("keydown", (e) =>{
-  const tecla = (e.key.length == 1) ? e.key.toLocaleLowerCase() : e.key
-
-  if(tecladoOrganizado[0].includes(tecla)){
-    if(e.target.classList.contains('regra-condicao') == false &&
-       e.target.classList.contains('regra-resultado') == false){
-      return
-    }
-    
-    digitarRegra(tecla)
-    return
-
-  } else {
-
-    tecladoOrganizado[1].forEach(set =>{
-
-      if(config.atalhoAberto == true && set.includes(tecla)){
-        try {
-          const element = document.getElementsByClassName("button-atalhos")[set[3]]
-          element.classList.add("button-atalho-ativo")
-
-          setTimeout(() => {
-            element.classList.remove("button-atalho-ativo")
-          }, 200)
-
-          return
-        } catch (error) {
-          console.log("elemento não encontrado\n")
-        }
-      }
-
-      if(e.target.classList.contains('regra-condicao') == false &&
-        e.target.classList.contains('regra-resultado') == false){
-        return
-      }
-      
-      if(set.includes(tecla)){
-        digitarRegra(set[1], set[2])
-        return
-
-      }
-    })
-
-    tecladoOrganizado[2].forEach((set, i) =>{
-
-      if(config.atalhoAberto == true && set.includes(tecla) && tecla !== "a" && tecla !== "Escape"){
-
-        try {
-          const element = document.getElementsByClassName("button-atalhos")[set[2]]
-          element.classList.add("button-atalho-ativo")
-
-          setTimeout(() => {
-            element.classList.remove("button-atalho-ativo")
-          }, 200)
-
-          return
-        } catch (error) {
-          console.log("elemento não encontrado\n")
-        }
-      }
-
-      if(set[0] == tecla && tecla == "a"){
-        fecharElemento()
-        toggleAtalhos()
-
-      } else if(set[0] == tecla && tecla == "Escape"){
-        fecharElemento()
-
-      } else if(set.includes(tecla) && config.elementOpened == undefined){
-        (set[1])();        
-        return
-      }
-    })
-  }
-})

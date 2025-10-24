@@ -23,12 +23,24 @@ header{
 
 header > span{
   font-size: 2em;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  align-content: center;
+  outline: none;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+header > span:focus{
+  background-color: #ffc48d;
+  border: 2px solid #ffbb00;
 }
 
 nav{
   display: none;
   
-  /* display: flex; */
+  display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -70,6 +82,24 @@ aside{
   background-color: #e7e7e7;
   transition: .5s;
 }
+.item-configuracao{
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 8px 16px;
+}
+
+.item-configuracao p{
+  width: 80%;
+}
+.item-configuracao img{
+  width: 24px;
+  height: 24px;
+}
+.item-configuracao button{
+  width: 100%;
+}
+
 
 main{
   margin-top: 40px;

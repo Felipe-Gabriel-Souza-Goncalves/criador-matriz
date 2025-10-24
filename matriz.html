@@ -12,30 +12,80 @@
     <link rel="stylesheet" href="css/regras.css" />
     <link rel="stylesheet" href="css/atalhos.css" />
     <link rel="stylesheet" href="css/aside.css" />
+    <link rel="stylesheet" href="css/abas.css" />
   </head>
   <body>
     <header>
-      <span onclick="document.querySelector('aside').style.left='0px'"
-        >&equiv;</span
-      >
+      <span tabindex="0" onclick="toggleAside()">&equiv;</span>
       <h1>Matrizes</h1>
     </header>
 
     <nav>
-      <button>Minhas matrizes</button>
-      <button>Soma</button>
-      <button>Subtração</button>
-      <button>Multiplicação</button>
-      <button>Determinantes</button>
+      <button onclick="abrirSecao('minhas-matrizes')">Minhas matrizes</button>
+      <button onclick="abrirSecao('container-soma-matrizes')">Soma</button>
+      <button onclick="abrirSecao('container-subtracao-matrizes')">Subtração</button>
+      <button onclick="abrirSecao('container-multiplicacao-matrizes')">Multiplicação</button>
+      <button onclick="abrirSecao('container-determinante-matrizes')">Determinantes</button>
     </nav>
 
     <aside>
-      <button
-        onclick="document.querySelector('aside').style.left='-300px'"
-        id="btn-fechar-aside"
-      >
-        X
-      </button>
+      <button onclick="toggleAside()" id="btn-fechar-aside">X</button>
+      <h1>Configurações</h1>
+      <br />
+      <hr />
+
+      <div id="container-configuracoes">
+        <div tabindex="0" class="item-configuracao">
+          <p>
+            Valor padrão:
+            <input
+              id="inputValorPadrao"
+              type="number"
+              value="1"
+              style="width: 50px"
+            />
+          </p>
+          <img
+            onclick="alterarConfig('valorPadrao', document.getElementById('inputValorPadrao').value)"
+            src="img/icon/save-icon.png"
+            width="24"
+            alt="salvar"
+          />
+        </div>
+
+        <div tabindex="0" class="item-configuracao">
+          <p>
+            Cor padrão:
+            <input id="inputCorPadrao" type="color" value="#efefef" />
+          </p>
+          <img
+            onclick="alterarConfig('corPadrao', document.getElementById('inputCorPadrao').value)"
+            src="img/icon/save-icon.png"
+            width="24"
+            alt="salvar"
+          />
+        </div>
+
+        <div tabindex="0" class="item-configuracao">
+          <button onclick="toggleAtalhos()">Ver atalhos</button>
+        </div>
+
+        <div tabindex="0" class="item-configuracao">
+          <button onclick="apagarMatrizes()">Excluir minhas matrizes</button>
+        </div>
+
+        <div tabindex="0" class="item-configuracao">
+          <button onclick="configPadrao()">Voltar para Configurações padrão</button>
+        </div>
+
+        <hr />
+        <br />
+        <span>&nbsp;&nbsp;&nbsp; EM DESENVOLVIMENTO &nbsp;&nbsp;&nbsp;</span>
+        <div tabindex="0" class="item-configuracao">
+          <button disabled>Importar matrizes</button>
+          <button disabled>Exportar matrizes</button>
+        </div>
+      </div>
     </aside>
 
     <main>
@@ -60,10 +110,7 @@
       </div>
       <br />
       <div>
-        <p>
-          Atalhos:
-          <button onclick="toggleAtalhos()">Ver atalhos</button>
-        </p>
+        <p>Atalhos:</p>
 
         <p>
           Regras:
@@ -95,6 +142,91 @@
               value="#efefef"
             />
           </div>
+        </div>
+      </div>
+
+      <div id="minhas-matrizes"></div>
+
+      <div id="container-abas">
+        <!-- Soma -->
+        <div id="container-soma-matrizes">
+          <span>*Precisa ter ao menos 1 matriz salva</span>
+          <hr />
+          <div id="soma-matrizes">
+            <div>
+              <div id="soma-matriz1" class="campo-carregar-matriz"></div>
+              <button>Escolher matriz</button>
+            </div>
+            <div>
+              <div id="soma-matriz2" class="campo-carregar-matriz"></div>
+              <button>Escolher matriz</button>
+            </div>
+          </div>
+          <button class="botao-operacao" disabled>Somar</button>
+        </div>
+
+        <!-- Subtração -->
+        <div id="container-subtracao-matrizes">
+          <span>*Precisa ter ao menos 1 matriz salva</span>
+          <hr />
+          <div id="subtracao-matrizes">
+            <div>
+              <div id="subtracao-matriz1" class="campo-carregar-matriz"></div>
+              <button>Escolher matriz</button>
+            </div>
+            <div>
+              <div id="subtracao-matriz2" class="campo-carregar-matriz"></div>
+              <button>Escolher matriz</button>
+            </div>
+          </div>
+          <button class="botao-operacao" disabled>Subtrair</button>
+        </div>
+
+        <!-- Multiplicação -->
+        <div id="container-multiplicacao-matrizes">
+          <span>*Precisa ter ao menos 1 matriz salva</span><br />
+          <span
+            >*O número de linhas da matriz 1 deve ser igual ao número de colunas
+            da matriz 2</span
+          >
+          <hr />
+          <div id="multiplicacao-matrizes">
+            <div>
+              <div
+                id="multiplicacao-matriz1"
+                class="campo-carregar-matriz"
+              ></div>
+              <button>Escolher matriz</button>
+            </div>
+            <div>
+              <div
+                id="multiplicacao-matriz2"
+                class="campo-carregar-matriz"
+              ></div>
+              <button>Escolher matriz</button>
+            </div>
+          </div>
+          <button class="botao-operacao" disabled>Multiplicar</button>
+        </div>
+
+        <!-- Determinantes -->
+        <div id="container-determinante-matrizes">
+          <span>*Deve ter apenas 1 matriz</span><br />
+          <span>*Deve ser uma matriz com número de linhas e colunas igual</span
+          ><br />
+          <hr />
+          <div id="determinante-matrizes">
+            <div>
+              <div
+                id="determinante-matriz1"
+                class="campo-carregar-matriz"
+              ></div>
+              <button>Escolher matriz</button>
+            </div>
+          </div>
+          <button class="botao-operacao" disabled>
+            Encontrar determinante
+          </button>
         </div>
       </div>
 
@@ -238,5 +370,7 @@
     <script src="js/matriz.js"></script>
     <script src="js/personalizar.js"></script>
     <script src="js/salvar.js"></script>
+    <script src="js/regras.js"></script>
+    <script src="js/teclado.js"></script>
   </body>
 </html>

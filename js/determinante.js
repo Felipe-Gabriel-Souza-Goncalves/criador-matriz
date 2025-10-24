@@ -1,21 +1,3 @@
-const matriz1 = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-]
-
-const matriz2 = [
-  [11, 22, 33],
-  [44, 55, 66],
-  [77, 88, 99],
-]
-
-const matriz3 = [
-  [4, 8, 3],
-  [7, 2, 6],
-  [1, 5, 9],
-]
-
 function acharDeterminante(mat){
 
   if(mat.length != mat[0].length){
@@ -26,7 +8,7 @@ function acharDeterminante(mat){
   let dp = 0
   let ds = 0
 
-  // DP
+  // Diagonal Principal
   for(let i = 0; i < mat.length; i++) {
 
     let diagonalAtual = 1
@@ -43,7 +25,7 @@ function acharDeterminante(mat){
     dp += diagonalAtual
   }
 
-  // // DS
+  // Diagonal Secundária
   for(let i = mat.length - 1; i > -1; i--) {
 
     let diagonalAtual = 1
@@ -58,11 +40,7 @@ function acharDeterminante(mat){
     ds += diagonalAtual
   }
 
-  console.log("DP", dp)
-  console.log("DS", ds)
-  console.log("DETERMINANTE", dp - ds)
+  // console.log("DP", dp)
+  // console.log("DS", ds)
+  // console.log("DETERMINANTE", dp - ds)
 }
-
-console.log(acharDeterminante(matriz1))
-// console.log(acharDeterminante(matriz2))
-// console.log(acharDeterminante(matriz3))

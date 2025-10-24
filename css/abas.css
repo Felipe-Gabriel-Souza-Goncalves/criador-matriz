@@ -1,0 +1,46 @@
+#minhas-matrizes,
+#container-soma-matrizes,
+#container-subtracao-matrizes,
+#container-multiplicacao-matrizes,
+#container-determinante-matrizes{
+  display: none;
+  text-align: center;
+}
+
+#soma-matrizes,
+#subtracao-matrizes,
+#multiplicacao-matrizes{
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+  align-items: center;
+  padding: 16px;
+}
+
+#soma-matrizes div,
+#subtracao-matrizes div,
+#multiplicacao-matrizes div{
+  width: 90%;
+}
+
+#soma-matrizes button,
+#subtracao-matrizes button,
+#multiplicacao-matrizes button{
+  width: 100%;
+  padding: 3px 6px;
+  font-size: 1.1em;
+}
+
+.botao-operacao{
+  width: 35%;
+  min-width: 200px;
+  padding: 4px 8px;
+  font-size: 1.3em;
+}
+
+.campo-carregar-matriz{
+  min-width: 400px;
+  min-height: 300px;
+  background-color: rgb(228, 228, 228);
+  border: 4px dashed gray;
+}

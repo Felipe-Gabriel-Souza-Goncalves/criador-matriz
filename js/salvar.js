@@ -19,6 +19,7 @@ function salvarMatriz(){
     }
 
     matrizesSalvas.push({
+        nome: "Matriz " + (matrizesSalvas.length + 1).toString().padStart(2, 0),
         matriz: ultimaMatriz,
         linhas: ultimaMatriz.length,
         colunas: ultimaMatriz[0].length,
@@ -26,6 +27,7 @@ function salvarMatriz(){
     })
 
     alert("Matriz salva com sucesso")
+    carregarMatrizesSalvas()
 }
 
 function compararMatriz(mat1, mat2){
@@ -38,4 +40,37 @@ function compararMatriz(mat1, mat2){
     })
 
     return matrizesIguais
+}
+
+function carregarMatrizesSalvas(){
+    const minhasMatrizes = document.getElementById("minhas-matrizes")
+    minhasMatrizes.innerHTML = ""
+
+    matrizesSalvas.forEach((item, i) =>{
+        const containerMatriz = document.createElement("div")
+        containerMatriz.classList.add("item-minha-matriz")
+
+        const tamanho = document.createElement("sub")
+        tamanho.innerHTML = item.linhas + "x" + item.colunas
+
+        const nome = document.createElement("span")
+        nome.innerHTML = item.nome + "<sub>"+ tamanho.innerHTML + "</sub>" + " - Determinante: Indefinido"
+
+
+        const carregar = document.createElement("button")
+        carregar.innerText = "Carregar"
+        // carregar.click = carregarMatriz(item.matriz)
+
+        containerMatriz.appendChild(nome)
+        containerMatriz.appendChild(carregar)
+
+        minhasMatrizes.appendChild(containerMatriz)
+    })
+}
+
+function apagarMatrizes(){
+    matrizesSalvas = []
+    carregarMatrizesSalvas()
+    alert("Matrizes apagadas")
+
 }
