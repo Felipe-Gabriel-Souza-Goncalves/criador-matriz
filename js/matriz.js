@@ -22,10 +22,11 @@ function criarMatriz() {
     return
   }
 
+  guardarRegras()
   const regrasIgnorar = []
 
   // Itera pelas regras, ignora as inválidas
-  if(regras[0].length !== 0){  
+  if(regras[0].length !== 0 && regras[0][0] !== ""){  
 
     regras.forEach((regra, i) => {
       const cond = returnRule(1, 1, regra[0])
@@ -97,7 +98,6 @@ function criarMatriz() {
   }
 
   ultimaMatriz = structuredClone(matrizGerada)
-  console.log("ultima", ultimaMatriz)
 }
 
 function apagarChar() {

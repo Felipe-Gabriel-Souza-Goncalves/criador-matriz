@@ -22,6 +22,8 @@
 
     <nav>
       <button onclick="abrirSecao('minhas-matrizes')">Minhas matrizes</button>
+      <button onclick="abrirSecao('container-regras-matrizes')">Regras</button>
+      <button onclick="abrirSecao('minhas-matrizes')">Aleatório</button>
       <button onclick="abrirSecao('container-soma-matrizes')">Soma</button>
       <button onclick="abrirSecao('container-subtracao-matrizes')">Subtração</button>
       <button onclick="abrirSecao('container-multiplicacao-matrizes')">Multiplicação</button>
@@ -109,9 +111,7 @@
         <button onclick="salvarMatriz()">Salvar matriz</button>
       </div>
       <br />
-      <div>
-        <p>Atalhos:</p>
-
+      <div id="container-regras-matrizes">
         <p>
           Regras:
           <button onclick="criarInputRegra()">Adicionar regra</button>
@@ -123,14 +123,12 @@
             <input
               type="text"
               class="regra-condicao"
-              readonly
               onfocus="isCondicao = true; inputRegra = 0"
               placeholder="Ex: i>j"
             />
             <input
               type="text"
               class="regra-resultado"
-              readonly
               onfocus="isCondicao = false; inputRegra = 0"
               placeholder="Ex: 2×i + 3"
             />
@@ -143,6 +141,10 @@
             />
           </div>
         </div>
+      </div>
+
+      <div id="container-aleatorio-matrizes">
+        
       </div>
 
       <div id="minhas-matrizes"></div>

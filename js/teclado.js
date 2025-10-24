@@ -26,83 +26,83 @@ const tecladoOrganizado = [
   ],
 ];
 
-function trocarTeclado(i = null) {
-  if (i == null) {
-    currentTeclado = (currentTeclado + 1) % 2;
-  }
+// function trocarTeclado(i = null) {
+//   if (i == null) {
+//     currentTeclado = (currentTeclado + 1) % 2;
+//   }
 
-  const secoesTeclado = document.querySelectorAll("div[id^='teclado-secao']");
-  for (let i = 0; i < secoesTeclado.length; i++) {
-    secoesTeclado[i].style.display = "none";
-  }
+//   const secoesTeclado = document.querySelectorAll("div[id^='teclado-secao']");
+//   for (let i = 0; i < secoesTeclado.length; i++) {
+//     secoesTeclado[i].style.display = "none";
+//   }
 
-  secoesTeclado[i || currentTeclado].style.display = "grid";
-}
+//   secoesTeclado[i || currentTeclado].style.display = "grid";
+// }
 
-document.body.addEventListener("keydown", (e) => {
-  const tecla = e.key.length == 1 ? e.key.toLocaleLowerCase() : e.key;
+// document.body.addEventListener("keydown", (e) => {
+//   const tecla = e.key.length == 1 ? e.key.toLocaleLowerCase() : e.key;
 
-  tecladoOrganizado[1].forEach((set) => {
-    if (config.atalhoAberto == true && set.includes(tecla)) {
-      try {
-        const element =
-          document.getElementsByClassName("button-atalhos")[set[3]];
-        element.classList.add("button-atalho-ativo");
+//   tecladoOrganizado[1].forEach((set) => {
+//     if (config.atalhoAberto == true && set.includes(tecla)) {
+//       try {
+//         const element =
+//           document.getElementsByClassName("button-atalhos")[set[3]];
+//         element.classList.add("button-atalho-ativo");
 
-        setTimeout(() => {
-          element.classList.remove("button-atalho-ativo");
-        }, 200);
+//         setTimeout(() => {
+//           element.classList.remove("button-atalho-ativo");
+//         }, 200);
 
-        return;
-      } catch (error) {
-        console.log("elemento não encontrado\n");
-      }
-    }
+//         return;
+//       } catch (error) {
+//         console.log("elemento não encontrado\n");
+//       }
+//     }
 
-    if (
-      e.target.classList.contains("regra-condicao") == false &&
-      e.target.classList.contains("regra-resultado") == false
-    ) {
-      return;
-    }
+//     if (
+//       e.target.classList.contains("regra-condicao") == false &&
+//       e.target.classList.contains("regra-resultado") == false
+//     ) {
+//       return;
+//     }
 
-    if (set.includes(tecla)) {
-      digitarRegra(set[1], set[2]);
-      return;
-    }
-  });
+//     if (set.includes(tecla)) {
+//       digitarRegra(set[1], set[2]);
+//       return;
+//     }
+//   });
 
-  tecladoOrganizado[2].forEach((set, i) => {
-    if (
-      config.atalhoAberto == true &&
-      set.includes(tecla) &&
-      tecla !== "a" &&
-      tecla !== "Escape"
-    ) {
-      try {
-        const element =
-          document.getElementsByClassName("button-atalhos")[set[2]];
-        element.classList.add("button-atalho-ativo");
+//   tecladoOrganizado[2].forEach((set, i) => {
+//     if (
+//       config.atalhoAberto == true &&
+//       set.includes(tecla) &&
+//       tecla !== "a" &&
+//       tecla !== "Escape"
+//     ) {
+//       try {
+//         const element =
+//           document.getElementsByClassName("button-atalhos")[set[2]];
+//         element.classList.add("button-atalho-ativo");
 
-        setTimeout(() => {
-          element.classList.remove("button-atalho-ativo");
-        }, 200);
+//         setTimeout(() => {
+//           element.classList.remove("button-atalho-ativo");
+//         }, 200);
 
-        return;
-      } catch (error) {
-        console.log("elemento não encontrado\n");
-      }
-    }
+//         return;
+//       } catch (error) {
+//         console.log("elemento não encontrado\n");
+//       }
+//     }
 
-    if (set[0] == tecla && tecla == "a") {
-      fecharElemento();
-      toggleAtalhos();
-    } else if (set[0] == tecla && tecla == "Escape") {
-      fecharElemento();
-    } else if (set.includes(tecla) && config.elementOpened == undefined) {
-      set[1]();
-      return;
-    }
-  });
+//     if (set[0] == tecla && tecla == "a") {
+//       fecharElemento();
+//       toggleAtalhos();
+//     } else if (set[0] == tecla && tecla == "Escape") {
+//       fecharElemento();
+//     } else if (set.includes(tecla) && config.elementOpened == undefined) {
+//       set[1]();
+//       return;
+//     }
+//   });
 
-});
+// });

@@ -39,14 +39,12 @@ function limparTodasRegras(){
               <input
                 type="text"
                 class="regra-condicao"
-                readonly
                 onfocus="isCondicao = true; inputRegra = 0"
                 placeholder="Ex: i>j"
               />
               <input
                 type="text"
                 class="regra-resultado"
-                readonly
                 onfocus="isCondicao = false; inputRegra = 0"
                 placeholder="Ex: 2×i + 3"
               />
@@ -80,9 +78,7 @@ function criarInputRegra() {
   const novoResultado = document.createElement("input");
   const novaCor = document.createElement("input");
 
-  novaCondicao.readOnly = true;
   novaCondicao.placeholder = "Ex: i>j"
-  novoResultado.readOnly = true;
   novoResultado.placeholder = "Ex: 2×i + 3"
   novaCor.type = "color";
 
@@ -123,9 +119,27 @@ function returnRule(i = null, j = null, rule) {
     }
     if(resultado == undefined) throw new Error("Resultado undefined")
     
-
     return resultado;
   } catch (error) {
-    console.log(resultado);
+    console.log("Erro:",resultado);
+  }
+}
+
+function guardarRegras(){
+  const condicoes = document.getElementsByClassName("regra-condicao")
+  const resultados = document.getElementsByClassName("regra-resultado")
+  const cores = document.getElementsByClassName("regra-cor")
+
+  if(condicoes.length != resultados.length || 
+     condicoes.length != cores.length ||
+     resultados.length != cores.length
+  ) {
+    return
+  }
+
+  regras = []
+
+  for(let i = 0; i < condicoes.length; i++){
+    regras.push([condicoes[i].value, resultados[i].value, cores[i].value])
   }
 }
