@@ -33,14 +33,13 @@ function acharDeterminante(mat){
     for(let j = mat.length -1 ; j > -1; j--){
 
       // console.log(mat[(j + mat.length) % mat.length][(j-i + mat.length) % mat.length])
-      diagonalAtual += mat[(j + mat.length) % mat.length][(j-i + mat.length) % mat.length] 
+      diagonalAtual *= mat[(j + mat.length) % mat.length][(j-i + mat.length) % mat.length] 
 
     }
 
     ds += diagonalAtual
   }
 
-  // console.log("DP", dp)
-  // console.log("DS", ds)
-  // console.log("DETERMINANTE", dp - ds)
+  const determinante = dp - ds
+  return {determinante, dp, ds}
 }

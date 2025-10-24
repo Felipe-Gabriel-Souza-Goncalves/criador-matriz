@@ -157,14 +157,15 @@
           <div id="soma-matrizes">
             <div>
               <div id="soma-matriz1" class="campo-carregar-matriz"></div>
-              <button>Escolher matriz</button>
+              <button onclick="carregarMatrizesSalvas(true, 'soma-matriz1')">Escolher matriz</button>
             </div>
             <div>
               <div id="soma-matriz2" class="campo-carregar-matriz"></div>
-              <button>Escolher matriz</button>
+              <button onclick="carregarMatrizesSalvas(true, 'soma-matriz2')">Escolher matriz</button>
             </div>
           </div>
-          <button class="botao-operacao" disabled>Somar</button>
+          <button class="botao-operacao" 
+            onclick="console.log(somaSubtracaoMatrizes(matrizesOperacao['soma'][0],  matrizesOperacao['soma'][1], 'soma'))">Somar</button>
         </div>
 
         <!-- Subtração -->
@@ -174,14 +175,15 @@
           <div id="subtracao-matrizes">
             <div>
               <div id="subtracao-matriz1" class="campo-carregar-matriz"></div>
-              <button>Escolher matriz</button>
+              <button onclick="carregarMatrizesSalvas(true, 'subtracao-matriz1')">Escolher matriz</button>
             </div>
             <div>
               <div id="subtracao-matriz2" class="campo-carregar-matriz"></div>
-              <button>Escolher matriz</button>
+              <button  onclick="carregarMatrizesSalvas(true, 'subtracao-matriz2')">Escolher matriz</button>
             </div>
           </div>
-          <button class="botao-operacao" disabled>Subtrair</button>
+          <button class="botao-operacao" 
+            onclick="console.log(somaSubtracaoMatrizes(matrizesOperacao['subtracao'][0],  matrizesOperacao['subtracao'][1], 'subtracao'))">Subtrair</button>
         </div>
 
         <!-- Multiplicação -->
@@ -194,18 +196,15 @@
           <hr />
           <div id="multiplicacao-matrizes">
             <div>
-              <div
-                id="multiplicacao-matriz1"
-                class="campo-carregar-matriz"
-              ></div>
-              <button>Escolher matriz</button>
+              <div id="multiplicacao-matriz1" class="campo-carregar-matriz"></div>
+              <button onclick="carregarMatrizesSalvas(true, 'multiplicacao-matriz1')">Escolher matriz</button>
             </div>
             <div>
               <div
                 id="multiplicacao-matriz2"
                 class="campo-carregar-matriz"
               ></div>
-              <button>Escolher matriz</button>
+              <button onclick="carregarMatrizesSalvas(true, 'multiplicacao-matriz2')">Escolher matriz</button>
             </div>
           </div>
           <button class="botao-operacao" disabled>Multiplicar</button>
@@ -223,10 +222,10 @@
                 id="determinante-matriz1"
                 class="campo-carregar-matriz"
               ></div>
-              <button>Escolher matriz</button>
+              <button onclick="carregarMatrizesSalvas(true, 'determinante-matriz1')">Escolher matriz</button>
             </div>
           </div>
-          <button class="botao-operacao" disabled>
+          <button class="botao-operacao" onclick="console.log(acharDeterminante(matrizesOperacao['determinante'][0]))">
             Encontrar determinante
           </button>
         </div>
@@ -374,5 +373,9 @@
     <script src="js/salvar.js"></script>
     <script src="js/regras.js"></script>
     <script src="js/teclado.js"></script>
+
+    <script src="js/somaSubtracao.js"></script>
+    <script src="js/multiplicacao.js"></script>
+    <script src="js/determinante.js"></script>
   </body>
 </html>

@@ -20,7 +20,9 @@
 #soma-matrizes div,
 #subtracao-matrizes div,
 #multiplicacao-matrizes div{
-  width: 90%;
+  text-align: center;
+  align-content: center;
+  border: 1px solid black;
 }
 
 #soma-matrizes button,

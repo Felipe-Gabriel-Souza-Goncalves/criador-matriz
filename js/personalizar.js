@@ -26,9 +26,30 @@ function criarMatrizLayout(){
       const input = document.createElement("input")
       input.type = "number"
       input.classList.add("input-matriz-personalizada")
+      input.setAttribute("onfocusout", "matrizFinalizada()")
 
       div.appendChild(input)
       document.getElementById("grid").appendChild(div);
     }
   }
+}
+
+function matrizFinalizada(){
+  const campo = document.getElementsByClassName("input-matriz-personalizada")
+  const matrizPersonalizada = []
+
+  for(let i = 0; i < campo.length; i++){
+    if(campo[i].value == "" || isNaN(campo[i].value)){
+      return
+    }
+  }
+
+  const grid = document.getElementById("grid")
+  const gridStyles = window.getComputedStyle(grid)
+
+  const templateRows = gridStyles.getPropertyValue("grid-template-rows").split(" ").length
+  const templateColumns = gridStyles.getPropertyValue("grid-template-columns").split(" ").length
+
+  console.log(templateRows, templateColumns)
+  
 }
