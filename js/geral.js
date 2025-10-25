@@ -11,24 +11,6 @@ const config = {
 
 }
 
-const matriz1 = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-]
-
-const matriz2 = [
-  [11, 22, 33],
-  [44, 55, 66],
-  [77, 88, 99],
-]
-
-const matriz3 = [
-  [4, 8, 3],
-  [7, 2, 6],
-  [1, 5, 9],
-]
-
 function toggleAside(){
   config.asideAberto = !config.asideAberto
 
@@ -50,15 +32,25 @@ function toggleAside(){
   }
 }
 
-function abrirSecao(secao = null){
+function abrirSecao(secao = null, secaoAuxiliar = null){
+
+  document.getElementById("container-criacao-matrizes").style.display = "none"
+  
+  document.getElementById("container-minhas-matrizes").style.display = "none"
+  document.getElementById("container-regras-matrizes").style.display = "none"
+  document.getElementById("container-aleatorio-matrizes").style.display = "none"
   document.getElementById("container-soma-matrizes").style.display = "none"
   document.getElementById("container-subtracao-matrizes").style.display = "none"
   document.getElementById("container-multiplicacao-matrizes").style.display = "none"
   document.getElementById("container-determinante-matrizes").style.display = "none"
-  document.getElementById("minhas-matrizes").style.display = "none"
+
 
   if(secao != null){
     document.getElementById(`${secao}`).style.display = "block"
+  }
+
+  if(secaoAuxiliar != null){
+    document.getElementById(`${secaoAuxiliar}`).style.display = "block"
   }
 
 }

@@ -31,20 +31,6 @@ function somaSubtracaoMatrizes(mat1, mat2, operacao){
     })
 
     if(!temMesmoTamanho){
-
-      /* EXEMPLO
-        mat1 = [
-          [1, 2],
-          [3, 4],
-        ]
-
-        mat2 = [
-          [1],
-          [2],
-        ]
-      */
-
-
       alert("Ambas as matrizes devem ter o mesmo tamanho")
       return
     }
@@ -89,5 +75,19 @@ function somaSubtracaoMatrizes(mat1, mat2, operacao){
   return mat3
 }
 
-somaSubtracaoMatrizes(matriz1, matriz2, "soma")
-somaSubtracaoMatrizes(matriz1, matriz2, "subtracao")
+function operacaoMatrizes(operacao){
+  if(!operacao){
+    console.log("Operação não fornecida")
+    return
+  }
+
+  const eResultado = `resultado-${operacao}-matriz` 
+  const matriz = somaSubtracaoMatrizes(
+    matrizesOperacao[`${operacao}`][0],
+    matrizesOperacao[`${operacao}`][1],
+    `${operacao}`)
+  
+  criarMatriz(matriz, eResultado)
+}
+
+

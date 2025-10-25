@@ -1,8 +1,4 @@
-#minhas-matrizes,
-#container-soma-matrizes,
-#container-subtracao-matrizes,
-#container-multiplicacao-matrizes,
-#container-determinante-matrizes{
+.container-abas{
   display: none;
   text-align: center;
 }
@@ -20,7 +16,9 @@
 #soma-matrizes div,
 #subtracao-matrizes div,
 #multiplicacao-matrizes div{
-  width: 90%;
+  text-align: center;
+  align-content: center;
+  border: 1px solid black;
 }
 
 #soma-matrizes button,
@@ -29,6 +27,10 @@
   width: 100%;
   padding: 3px 6px;
   font-size: 1.1em;
+}
+
+div[id^="resultado"]{
+  display: none;
 }
 
 .botao-operacao{
