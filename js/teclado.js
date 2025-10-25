@@ -16,13 +16,13 @@ const tecladoOrganizado = [
   ],
 
   [
-    ["Delete", limparRegra, 5],
-    ["Backspace", apagarChar, 6],
-    ["ArrowLeft", trocarTeclado, 7],
-    ["ArrowRight", trocarTeclado, 8],
-    ["/", criarMatriz, 9],
-    ["Escape", fecharElemento, 10],
-    ["a", toggleAtalhos, 11],
+    // ["Delete", limparRegra, 5],
+    // ["Backspace", apagarChar, 6],
+    // ["ArrowLeft", trocarTeclado, 7],
+    // ["ArrowRight", trocarTeclado, 8],
+    // ["/", criarMatriz, 9],
+    ["Escape", fecharElemento, 9],
+    ["a", toggleAtalhos, 10],
   ],
 ];
 
@@ -106,3 +106,36 @@ const tecladoOrganizado = [
 //   });
 
 // });
+
+document.body.addEventListener("keydown", (e) => {
+  const tecla = e.key.length == 1 ? e.key.toLocaleLowerCase() : e.key;
+
+    tecladoOrganizado[2].forEach((set, i) => {
+    if (
+      config.atalhoAberto == true &&
+      set.includes(tecla) &&
+      tecla !== "a" &&
+      tecla !== "Escape"
+    ) {
+      try {
+        const element =
+          document.getElementsByClassName("button-atalho")
+        element.classList.add("button-atalho-ativo");
+        setTimeout(() => {
+          element.classList.remove("button-atalho-ativo")
+        }, 200);
+        return;
+      } catch (error) {
+        console.log("elemento não encontrado\n");
+      }
+    }
+    if (set[0] == tecla && tecla == "a") {
+      fecharElemento();
+      toggleAtalhos();
+    } else if (set[0] == tecla && tecla == "Escape") {
+      fecharElemento();
+    } else if (set.includes(tecla) && config.elementOpened)
+      set[1]();
+      return;
+    })
+})

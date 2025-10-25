@@ -41,6 +41,18 @@ let matrizesSalvas = [
         "colunas": 3,
         "determinante": undefined,
     },
+    
+    {
+        "nome": "Matriz 4",
+        "matriz": [
+            [3, -1, 4],
+            [0, 1, 1],
+            [-2, 3, 1],
+        ],
+        "linhas": 3,
+        "colunas": 3,
+        "determinante": undefined,
+    },
 ]
 
 function salvarMatriz(){
@@ -86,7 +98,7 @@ function compararMatriz(mat1, mat2){
 
 function carregarMatrizesSalvas(carregar = false, local = null){
 
-    const minhasMatrizes = local != null ?  document.getElementById(`${local}`) : document.getElementById("minhas-matrizes")
+    const minhasMatrizes = local != null ?  document.getElementById(`${local}`) : document.getElementById("container-minhas-matrizes")
     console.log(minhasMatrizes)
     minhasMatrizes.innerHTML = ""
 

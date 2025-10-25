@@ -89,5 +89,10 @@ function somaSubtracaoMatrizes(mat1, mat2, operacao){
   return mat3
 }
 
-somaSubtracaoMatrizes(matriz1, matriz2, "soma")
-somaSubtracaoMatrizes(matriz1, matriz2, "subtracao")
+function somarMatrizes(){
+  const resultado = document.getElementById("resultado-soma-matriz")
+}
+
+function subtrairMatrizes(){
+  const resultado = document.getElementById("resultado-subtracao-matriz")
+}

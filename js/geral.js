@@ -50,15 +50,25 @@ function toggleAside(){
   }
 }
 
-function abrirSecao(secao = null){
+function abrirSecao(secao = null, secaoAuxiliar = null){
+
+  document.getElementById("container-criacao-matrizes").style.display = "none"
+  
+  document.getElementById("container-minhas-matrizes").style.display = "none"
+  document.getElementById("container-regras-matrizes").style.display = "none"
+  document.getElementById("container-aleatorio-matrizes").style.display = "none"
   document.getElementById("container-soma-matrizes").style.display = "none"
   document.getElementById("container-subtracao-matrizes").style.display = "none"
   document.getElementById("container-multiplicacao-matrizes").style.display = "none"
   document.getElementById("container-determinante-matrizes").style.display = "none"
-  document.getElementById("minhas-matrizes").style.display = "none"
+
 
   if(secao != null){
     document.getElementById(`${secao}`).style.display = "block"
+  }
+
+  if(secaoAuxiliar != null){
+    document.getElementById(`${secaoAuxiliar}`).style.display = "block"
   }
 
 }

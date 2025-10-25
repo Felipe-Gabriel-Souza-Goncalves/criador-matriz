@@ -1,3 +1,11 @@
+:root{
+  --laranjaBg: #ff9f46;
+  --claroBorda: #ffd6af;
+  /* --escuroBorda: #d4692c; */
+  --escuroBorda: #eb7a39;
+  --contrasteBorda: #ffa500;
+}
+
 *{
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
@@ -16,12 +24,12 @@ header{
   align-items: center;
   padding: 8px 16px;
   gap: 12px;
-  background-color: #ff9f46;
+  background-color: var(--laranjaBg);
   color: white;
   border-bottom: 2px solid #ffd6af;
 }
 
-header > span{
+header > button{
   font-size: 2em;
   width: 40px;
   height: 40px;
@@ -30,9 +38,11 @@ header > span{
   outline: none;
   border-radius: 50%;
   border: 2px solid transparent;
+  color: white;
+  background-color: transparent;
 }
 
-header > span:focus{
+header > button:focus{
   background-color: #ffc48d;
   border: 2px solid #ffbb00;
 }
@@ -45,7 +55,7 @@ nav{
   align-items: center;
   width: 100%;
   height: 40px;
-  background-color: #ff9f46;
+  background-color: var(--laranjaBg);
   color: white;
 
   /* position: absolute; */
@@ -59,11 +69,15 @@ nav > button{
   font-size: 1.1em;
   width: 20%;
   height: 100%;
-  background-color: #ff9f46;
+  background-color: var(--laranjaBg);
   color: white;
   box-sizing: content-box;
   border: 0px;
   border-bottom: 2px solid transparent;
+}
+
+nav > button:not(:last-of-type){
+  border-right: 2px solid var(--escuroBorda) !important;
 }
 
 nav > button:hover,
@@ -102,6 +116,21 @@ aside{
 
 
 main{
-  margin-top: 40px;
+  margin-top: 12px;
   padding: 12px 24px;
+}
+
+footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  text-align: center;
+  padding: 16px 32px;
+  border: 0;
+  border-top: 2px solid #ffd6af;
+  margin-top: 64px;
+  gap: 12px;
+  background-color: var(--laranjaBg);
+  color: white;
 }

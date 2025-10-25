@@ -1,3 +1,8 @@
+aside h1:first-of-type{
+  padding: 4px 0px;
+  text-align: center;
+}
+
 #btn-fechar-aside{
   padding: 4px;
   width: 36px;
@@ -5,9 +10,16 @@
   font-size: 1.25em;
   font-family: cursive;
   border: 0;
-  border-left: 2px solid #ffa500;
-  border-bottom: 2px solid #ffa500;
+  border-left: 2px solid var(--contrasteBorda);
+  border-bottom: 2px solid var(--contrasteBorda);
   border-radius: 0 0 0 8px;
   float: right;
   background: #ffcb9b;
+  outline: 0;
+}
+
+#btn-fechar-aside:focus{
+  border-color: var(--escuroBorda);
+  background-color: var(--laranjaBg);
+  color: white;
 }
