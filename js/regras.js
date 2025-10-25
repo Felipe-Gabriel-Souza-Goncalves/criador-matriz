@@ -179,7 +179,6 @@ function gerarMatrizComRegra(){
       const cond = returnRule(1, 1, regra[0])
       const resul = returnRule(1, 1, regra[1])
 
-      // console.log(cond, typeof cond, resul, typeof resul)
       if(typeof cond !== "boolean" || typeof resul != "number") regrasIgnorar.push(i); return
     })
     
@@ -226,6 +225,5 @@ function gerarMatrizComRegra(){
     }
   }
 
-  // matrizGerada[i - 1].push(valor)
-  criarMatriz(matrizGerada)
+  criarMatriz(matrizGerada, null, true)
 }

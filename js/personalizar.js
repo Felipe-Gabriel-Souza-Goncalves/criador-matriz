@@ -49,7 +49,5 @@ function matrizFinalizada(){
 
   const templateRows = gridStyles.getPropertyValue("grid-template-rows").split(" ").length
   const templateColumns = gridStyles.getPropertyValue("grid-template-columns").split(" ").length
-
-  console.log(templateRows, templateColumns)
   
 }

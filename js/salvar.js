@@ -5,55 +5,7 @@ let matrizesOperacao = {
     multiplicacao: [],
     determinante: []
 }
-let matrizesSalvas = [
-    {
-        "nome": "Matriz 1",
-        "matriz":     [
-            [1, 2, 1],
-            [2, 1, 2],
-            [1, 2, 3],
-        ],
-        "linhas": 3,
-        "colunas": 3,
-        "determinante": undefined,
-    },
-    
-    {
-        "nome": "Matriz 2",
-        "matriz": [
-            [11, 22, 33],
-            [44, 55, 66],
-            [77, 88, 99],
-        ],
-        "linhas": 3,
-        "colunas": 3,
-        "determinante": undefined,
-    },
-    
-    {
-        "nome": "Matriz 3",
-        "matriz": [
-            [4, 8, 3],
-            [7, 2, 6],
-            [1, 5, 9],
-        ],
-        "linhas": 3,
-        "colunas": 3,
-        "determinante": undefined,
-    },
-    
-    {
-        "nome": "Matriz 4",
-        "matriz": [
-            [3, -1, 4],
-            [0, 1, 1],
-            [-2, 3, 1],
-        ],
-        "linhas": 3,
-        "colunas": 3,
-        "determinante": undefined,
-    },
-]
+let matrizesSalvas = []
 
 function salvarMatriz(){
     if(ultimaMatriz == undefined) return
@@ -72,12 +24,16 @@ function salvarMatriz(){
         return
     }
 
+    const determinante = acharDeterminante(ultimaMatriz)
+    console.log("PORTANTO1", determinante)
+    console.log("PORTANTO", determinante.determinante)
+
     matrizesSalvas.push({
         nome: "Matriz " + (matrizesSalvas.length + 1).toString().padStart(2, 0),
         matriz: ultimaMatriz,
         linhas: ultimaMatriz.length,
         colunas: ultimaMatriz[0].length,
-        determinante: undefined,
+        determinante: determinante || "Indefinido",
     })
 
     alert("Matriz salva com sucesso")
@@ -98,8 +54,9 @@ function compararMatriz(mat1, mat2){
 
 function carregarMatrizesSalvas(carregar = false, local = null){
 
-    const minhasMatrizes = local != null ?  document.getElementById(`${local}`) : document.getElementById("container-minhas-matrizes")
-    console.log(minhasMatrizes)
+    const minhasMatrizes = local != null ?  
+    document.getElementById(`${local}`) : document.getElementById("container-minhas-matrizes")
+
     minhasMatrizes.innerHTML = ""
 
     if(local != null){

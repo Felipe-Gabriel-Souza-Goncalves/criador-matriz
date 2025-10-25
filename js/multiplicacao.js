@@ -13,6 +13,7 @@ function multiplicarMatrizes(mat1, mat2){
     return
   }
 
+
   // Se tem o mesmo tamanho
   if(mat1.length !== mat2.length){
     alert("Ambas as matrizes devem ter o mesmo tamanho")
@@ -31,20 +32,6 @@ function multiplicarMatrizes(mat1, mat2){
     })
 
     if(!temMesmoTamanho){
-
-      /* EXEMPLO
-        mat1 = [
-          [1, 2],
-          [3, 4],
-        ]
-
-        mat2 = [
-          [1],
-          [2],
-        ]
-      */
-
-
       alert("Ambas as matrizes devem ter o mesmo tamanho")
       return
     }
@@ -55,40 +42,37 @@ function multiplicarMatrizes(mat1, mat2){
     return
   }
 
-  const somaLinhas = []
-  const somaColunas = []
-  
   const mat3 = []
+  const equacao = []
 
-  // Soma as 2 matrizes
-  // mat1.forEach((linha, i) =>{
-  //   mat3.push([])
+  mat1.forEach((linha, i) =>{
+    mat3.push([])
+    equacao.push([])
+    linha.forEach((coluna, j) =>{
+      const valorCelula = []
+      const subequacao = []
 
-  //   if(Array.isArray(linha)){
+      linha.forEach((correspondente, k) =>{
+        valorCelula.push(correspondente * mat2[k][j])
+        subequacao.push(correspondente+"*"+mat2[k][j]+"+")
+      })
 
-  //     let valorSomaLinha = 0
+      const valorInicial = 0
+      const somaTotal = valorCelula.reduce((prev, curr) => prev+curr, valorInicial)
 
-  //     linha.forEach((item, j) =>{
-
-  //       let valorSomaColuna = 0
-        
-  //       mat1[0].forEach(coluna => {
-  //         valorSomaColuna += coluna
-  //       })
-
-  //       // valoresLinha[j] = item 
-
-
-  //     })
-
-  //   // Se forem de 1 dimensão
-  //   } else{
-
-
-
-  //   }
-  
-  // })
-  
+      mat3[i].push(somaTotal)
+      equacao[i].push(subequacao)
+    })
+  })
   return mat3
+}
+
+function carregarMultiplicacao(){
+  const resultado = "resultado-multiplicacao-matriz"
+  const matriz = multiplicarMatrizes(
+    matrizesOperacao["multiplicacao"][0],
+    matrizesOperacao["multiplicacao"][1]
+  )
+
+  criarMatriz(matriz, resultado)
 }

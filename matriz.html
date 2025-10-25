@@ -17,10 +17,7 @@
   <body>
     <header>
       <button onclick="toggleAside()">&equiv;</button>
-      <!-- <a aria-hidden="true"  onclick="toggleAside()">
-        <img src="img/icon/menu.png" tabindex="0" alt="Menu de configuração">
-      </a> -->
-      <h1>Matrizes</h1>
+      <h1>Matrizes (BETA)</h1>
     </header>
 
     <aside>
@@ -79,9 +76,15 @@
     </aside>
 
     <nav>
-      <button onclick="abrirSecao('container-minhas-matrizes', 'container-criacao-matrizes')">Minhas matrizes</button>
-      <button onclick="abrirSecao('container-regras-matrizes', 'container-criacao-matrizes')">Regras</button>
-      <button onclick="abrirSecao('container-aleatorio-matrizes', 'container-criacao-matrizes')">Aleatório</button>
+      <button onclick="abrirSecao('container-minhas-matrizes', 'container-criacao-matrizes')">
+        Minhas matrizes
+      </button>
+      <button onclick="abrirSecao('container-regras-matrizes', 'container-criacao-matrizes')">
+        Regras
+      </button>
+      <button onclick="abrirSecao('container-aleatorio-matrizes', 'container-criacao-matrizes')">
+        Aleatório
+      </button>
       <button onclick="abrirSecao('container-soma-matrizes')">Soma</button>
       <button onclick="abrirSecao('container-subtracao-matrizes')">Subtração</button>
       <button onclick="abrirSecao('container-multiplicacao-matrizes')">Multiplicação</button>
@@ -89,8 +92,6 @@
     </nav>
 
     <main>
-
-      
       <div id="container-criacao-matrizes">
         <label for="linhas">Linhas:</label>
         <input type="number" id="linhas" min="0" max="20" placeholder="Linhas (i)" />
@@ -99,11 +100,9 @@
         <input type="number" id="colunas" min="0" max="20" placeholder="Colunas (j)" />
         <br /><br />
 
-        <button onclick="criarMatriz()">Enviar</button>
         <button onclick="criarMatrizLayout()">Criar Personalizado</button>
         <button onclick="salvarMatriz()">Salvar matriz</button>
       </div>
-      
 
       <br />
       <div id="container-regras-matrizes" class="container-abas">
@@ -111,7 +110,7 @@
         <p>
           <button onclick="criarInputRegra()">Adicionar regra</button>
           <button onclick="limparTodasRegras()">Limpar regras</button>
-          <br>
+          <br />
           <button onclick="gerarMatrizComRegra()">Gerar matriz</button>
         </p>
 
@@ -147,9 +146,9 @@
 
         <div id="container-aleatorio-matrizes" class="container-abas">
           <h2>Matriz aleatória</h2>
-          <input type="number" id="aleatorio-valor-minimo" />
-          <input type="number" id="aleatorio-valor-maximo" />
-          <button disabled>Gerar</button>
+          <input type="number" id="aleatorio-valor-minimo" placeholder="Valor mínimo" />
+          <input type="number" id="aleatorio-valor-maximo" placeholder="Valor máximo" />
+          <button onclick="gerarMatrizAleatoria()">Gerar</button>
         </div>
 
         <!-- Soma -->
@@ -175,12 +174,7 @@
             <!-- RESULTADO -->
             <div id="resultado-soma-matriz"></div>
           </div>
-          <button
-            class="botao-operacao"
-            onclick="console.log(somaSubtracaoMatrizes(matrizesOperacao['soma'][0],  matrizesOperacao['soma'][1], 'soma'))"
-          >
-            Somar
-          </button>
+          <button class="botao-operacao" onclick="operacaoMatrizes('soma')">Somar</button>
         </div>
 
         <!-- Subtração -->
@@ -205,18 +199,13 @@
             <!-- RESULTADO -->
             <div id="resultado-subtracao-matriz"></div>
           </div>
-          <button
-            class="botao-operacao"
-            onclick="console.log(somaSubtracaoMatrizes(matrizesOperacao['subtracao'][0],  matrizesOperacao['subtracao'][1], 'subtracao'))"
-          >
-            Subtrair
-          </button>
+          <button class="botao-operacao" onclick="operacaoMatrizes('subtracao')">Subtrair</button>
         </div>
 
         <!-- Multiplicação -->
         <div id="container-multiplicacao-matrizes" class="container-abas">
           <h2>Multiplicação</h2>
-          
+
           <span>*Precisa ter ao menos 1 matriz salva</span><br />
           <span
             >*O número de linhas da matriz 1 deve ser igual ao número de colunasda matriz 2</span
@@ -239,13 +228,13 @@
             <!-- RESULTADO -->
             <div id="resultado-multiplicacao-matriz"></div>
           </div>
-          <button class="botao-operacao" disabled>Multiplicar</button>
+          <button class="botao-operacao" onclick="carregarMultiplicacao()">Multiplicar</button>
         </div>
 
         <!-- Determinantes -->
         <div id="container-determinante-matrizes" class="container-abas">
           <h2>Determinantes</h2>
-          
+
           <span>*Deve ter apenas 1 matriz</span><br />
           <span>*Deve ser uma matriz com número de linhas e colunas igual</span><br />
           <hr />
@@ -260,8 +249,10 @@
             <!-- RESULTADO -->
             <div id="resultado-determinante-matriz"></div>
           </div>
-          <button class="botao-operacao"
-            onclick="console.log(acharDeterminante(matrizesOperacao['determinante'][0]))">
+          <button
+            class="botao-operacao"
+            onclick="console.log(acharDeterminante(matrizesOperacao['determinante'][0]))"
+          >
             Encontrar determinante
           </button>
         </div>

@@ -1,14 +1,5 @@
-/* #container-minhas-matrizes,
-#container-soma-matrizes,
-#container-subtracao-matrizes,
-#container-multiplicacao-matrizes,
-#container-determinante-matrizes{
-  display: none;
-  text-align: center;
-} */
-
 .container-abas{
-    display: none;
+  display: none;
   text-align: center;
 }
 

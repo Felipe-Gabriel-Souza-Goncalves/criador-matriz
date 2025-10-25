@@ -16,3 +16,39 @@
 ## 1.2 - 11/10/2025
 - Card de atalhos disponíveis
 - Design e responsividade mínima 
+
+## 1.2.1 - 16/10/2025
+- Correções nos atalhos
+
+## 1.2.2 - 19/10/2025
+- Verificações para criação de matrizes
+- Design na aba de atalhos
+
+## 1.2.3 - 20/10/2025
+- Otimizações de código
+- Correções de lógica
+- Melhoria de design
+
+## 1.2.4 - 21/10/2025
+- 1ª versão de salvar matrizes geradas
+
+## 1.2.5 - 22/10/2025
+- Back-End para achar determinantes
+- Design de headeer e aba de configurações
+
+## 1.2.6 - 24/10/2025
+- Integrações de operações de soma, subtração e determinantes <br> com o Front-End
+- Remoção temporária de readonly para inputs de gerar regra
+
+## 1.3.0 - 25/10/2025
+- Configurações básicas (durante sessão)
+- Soma de 2 matrizes
+- Subtração de 2 matrizes
+- Multiplicação de 2 matrizes
+- Gerar matrizes aleatórias
+- Achar determinante de matriz
+- Melhoria de design (header/footer principalmente)
+**HÁ ERROS EM PRODUÇÃO**
+especialmente com:
+- Design e responsividade
+- Regras (por utilizar eval())

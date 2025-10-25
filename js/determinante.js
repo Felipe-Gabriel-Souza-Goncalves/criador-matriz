@@ -9,7 +9,6 @@ function acharDeterminante(mat){
   let ds = 0
 
   // Diagonal Principal ⬊
-
   /*
    [⬊, x, x],    [x, ⬊, x],     [x, x, ⬊],
    [x, ⬊, x],    [x, x, ⬊],     [⬊, x, x],
@@ -29,7 +28,6 @@ function acharDeterminante(mat){
   }
 
   // Diagonal Secundária
-
   /*
   [x, x, ↙],    [x, ↙, x],    [↙, x, x],
   [x, ↙, x],    [↙, x, x],    [x, x, ↙],
