@@ -34,6 +34,7 @@ function toggleAside(){
 
 function abrirSecao(secao = null, secaoAuxiliar = null){
 
+  document.getElementById("grid").style.display = "none"
   document.getElementById("container-criacao-matrizes").style.display = "none"
   
   document.getElementById("container-minhas-matrizes").style.display = "none"
@@ -50,7 +51,9 @@ function abrirSecao(secao = null, secaoAuxiliar = null){
   }
 
   if(secaoAuxiliar != null){
-    document.getElementById(`${secaoAuxiliar}`).style.display = "block"
+    secaoAuxiliar.forEach(secao =>{
+      document.getElementById(`${secao}`).style.display = "block"
+    })
   }
 
 }
@@ -72,3 +75,7 @@ function configPadrao(){
 function atualizarListaConfig(){
   const configuracoes = document.getElementById("container-configuracoes")
 }
+
+(() =>{
+  const height = window.innerWidth
+})

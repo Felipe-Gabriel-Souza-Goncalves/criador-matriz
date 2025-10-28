@@ -25,8 +25,6 @@ function salvarMatriz(){
     }
 
     const determinante = acharDeterminante(ultimaMatriz)
-    console.log("PORTANTO1", determinante)
-    console.log("PORTANTO", determinante.determinante)
 
     matrizesSalvas.push({
         nome: "Matriz " + (matrizesSalvas.length + 1).toString().padStart(2, 0),
@@ -63,6 +61,9 @@ function carregarMatrizesSalvas(carregar = false, local = null){
         minhasMatrizes.style.display = "flex"
     }
 
+    if(matrizesSalvas.length == 0){
+        minhasMatrizes.innerHTML = "<p class='sem-matriz-salva'>Não há matrizes salvas</p>"
+    }
 
     matrizesSalvas.forEach((item, i) =>{
         const containerMatriz = document.createElement("div")
@@ -85,7 +86,7 @@ function carregarMatrizesSalvas(carregar = false, local = null){
         } else {
             const excluir = document.createElement("button")
             excluir.innerText = "Excluir"
-            excluir.click = excluirMatriz(id)
+            excluir.click = excluirMatriz(i)
 
             containerMatriz.appendChild(excluir)
         }
@@ -104,6 +105,7 @@ function apagarMatrizes(){
 
 function carregarMatriz(secao, obj){
     const grid = document.getElementById(`${secao}`)
+    grid.classList.add("matriz-ocupada")
     grid.style.display = "grid"
     grid.innerHTML = ""
 

@@ -76,13 +76,13 @@
     </aside>
 
     <nav>
-      <button onclick="abrirSecao('container-minhas-matrizes', 'container-criacao-matrizes')">
+      <button onclick="abrirSecao('container-minhas-matrizes', ['container-criacao-matrizes'])">
         Minhas matrizes
       </button>
-      <button onclick="abrirSecao('container-regras-matrizes', 'container-criacao-matrizes')">
+      <button onclick="abrirSecao('container-regras-matrizes', ['container-criacao-matrizes'])">
         Regras
       </button>
-      <button onclick="abrirSecao('container-aleatorio-matrizes', 'container-criacao-matrizes')">
+      <button onclick="abrirSecao('container-aleatorio-matrizes', ['container-criacao-matrizes'])">
         Aleatório
       </button>
       <button onclick="abrirSecao('container-soma-matrizes')">Soma</button>
@@ -157,16 +157,16 @@
 
           <span>*Precisa ter ao menos 1 matriz salva</span>
           <hr />
-          <div id="soma-matrizes">
+          <div id="soma-matrizes" class="container-carregar-matrizes">
             <div>
               <div id="soma-matriz1" class="campo-carregar-matriz"></div>
-              <button onclick="carregarMatrizesSalvas(true, 'soma-matriz1')">
+              <button class="btn-escolher-matriz" onclick="carregarMatrizesSalvas(true, 'soma-matriz1')">
                 Escolher matriz
               </button>
             </div>
             <div>
               <div id="soma-matriz2" class="campo-carregar-matriz"></div>
-              <button onclick="carregarMatrizesSalvas(true, 'soma-matriz2')">
+              <button class="btn-escolher-matriz" onclick="carregarMatrizesSalvas(true, 'soma-matriz2')">
                 Escolher matriz
               </button>
             </div>
@@ -182,16 +182,16 @@
           <h2>Subtração</h2>
           <span>*Precisa ter ao menos 1 matriz salva</span>
           <hr />
-          <div id="subtracao-matrizes">
+          <div id="subtracao-matrizes" class="container-carregar-matrizes">
             <div>
               <div id="subtracao-matriz1" class="campo-carregar-matriz"></div>
-              <button onclick="carregarMatrizesSalvas(true, 'subtracao-matriz1')">
+              <button class="btn-escolher-matriz" onclick="carregarMatrizesSalvas(true, 'subtracao-matriz1')">
                 Escolher matriz
               </button>
             </div>
             <div>
               <div id="subtracao-matriz2" class="campo-carregar-matriz"></div>
-              <button onclick="carregarMatrizesSalvas(true, 'subtracao-matriz2')">
+              <button class="btn-escolher-matriz" onclick="carregarMatrizesSalvas(true, 'subtracao-matriz2')">
                 Escolher matriz
               </button>
             </div>
@@ -208,19 +208,19 @@
 
           <span>*Precisa ter ao menos 1 matriz salva</span><br />
           <span
-            >*O número de linhas da matriz 1 deve ser igual ao número de colunasda matriz 2</span
+            >*O número de linhas da matriz 1 deve ser igual ao número de colunas da matriz 2</span
           >
           <hr />
-          <div id="multiplicacao-matrizes">
+          <div id="multiplicacao-matrizes" class="container-carregar-matrizes">
             <div>
               <div id="multiplicacao-matriz1" class="campo-carregar-matriz"></div>
-              <button onclick="carregarMatrizesSalvas(true, 'multiplicacao-matriz1')">
+              <button class="btn-escolher-matriz" onclick="carregarMatrizesSalvas(true, 'multiplicacao-matriz1')">
                 Escolher matriz
               </button>
             </div>
             <div>
               <div id="multiplicacao-matriz2" class="campo-carregar-matriz"></div>
-              <button onclick="carregarMatrizesSalvas(true, 'multiplicacao-matriz2')">
+              <button class="btn-escolher-matriz" onclick="carregarMatrizesSalvas(true, 'multiplicacao-matriz2')">
                 Escolher matriz
               </button>
             </div>
@@ -238,10 +238,10 @@
           <span>*Deve ter apenas 1 matriz</span><br />
           <span>*Deve ser uma matriz com número de linhas e colunas igual</span><br />
           <hr />
-          <div id="determinante-matrizes">
+          <div id="determinante-matrizes" class="container-carregar-matrizes">
             <div>
               <div id="determinante-matriz1" class="campo-carregar-matriz"></div>
-              <button onclick="carregarMatrizesSalvas(true, 'determinante-matriz1')">
+              <button class="btn-escolher-matriz" onclick="carregarMatrizesSalvas(true, 'determinante-matriz1')">
                 Escolher matriz
               </button>
             </div>
@@ -393,7 +393,6 @@
         </div>
       </div>
     </main>
-
     <footer>
       <div>
         <p>Repositório do projeto:</p>

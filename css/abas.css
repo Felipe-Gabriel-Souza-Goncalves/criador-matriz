@@ -3,27 +3,22 @@
   text-align: center;
 }
 
-#soma-matrizes,
-#subtracao-matrizes,
-#multiplicacao-matrizes{
+.container-carregar-matrizes{
   display: flex;
+  flex-wrap: wrap;
   text-align: center;
   justify-content: space-around;
   align-items: center;
+  row-gap: 12px;
   padding: 16px;
 }
 
-#soma-matrizes div,
-#subtracao-matrizes div,
-#multiplicacao-matrizes div{
+.container-carregar-matrizes div:has(.btn-escolher-matriz) div{
   text-align: center;
   align-content: center;
-  border: 1px solid black;
 }
 
-#soma-matrizes button,
-#subtracao-matrizes button,
-#multiplicacao-matrizes button{
+.container-carregar-matrizes button{
   width: 100%;
   padding: 3px 6px;
   font-size: 1.1em;
@@ -31,6 +26,21 @@
 
 div[id^="resultado"]{
   display: none;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+div[id^="resultado"] div{
+  border: 1px solid black;
+  align-content: center;
+}
+
+.matriz-ocupada{
+  display: grid;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+.matriz-ocupada div{
+  border: 1px solid black;
 }
 
 .botao-operacao{
@@ -45,4 +55,10 @@ div[id^="resultado"]{
   min-height: 300px;
   background-color: rgb(228, 228, 228);
   border: 4px dashed gray;
+}
+
+.sem-matriz-salva{
+  width:100%;
+  text-align:center;
+  align-content:center;
 }

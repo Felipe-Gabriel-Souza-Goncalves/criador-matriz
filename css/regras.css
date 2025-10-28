@@ -1,8 +1,12 @@
 div#container-regras{
   display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   margin: 8px 4px;
 }
+
 div#container-regras input {
     box-sizing: content-box;
     height: 24px;
@@ -19,7 +23,6 @@ div#container-regras input {
   padding: 2px 0px;
 
 }
-
 
 #linhas,
 #colunas{

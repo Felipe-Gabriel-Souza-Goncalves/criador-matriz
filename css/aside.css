@@ -1,3 +1,32 @@
+aside{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: -350px;
+  width: 300px;
+  height: 100vh;
+  background-color: #e7e7e7;
+  transition: .5s;
+}
+.item-configuracao{
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 8px 16px;
+}
+
+.item-configuracao p{
+  width: 80%;
+}
+.item-configuracao img{
+  width: 24px;
+  height: 24px;
+}
+.item-configuracao button{
+  width: 100%;
+}
+
+
 aside h1:first-of-type{
   padding: 4px 0px;
   text-align: center;

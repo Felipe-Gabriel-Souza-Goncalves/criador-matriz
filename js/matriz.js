@@ -10,8 +10,6 @@ const cor = document.getElementsByClassName("regra-cor");
 
 function criarMatriz(matriz, grid = null, regra = false) {
   if(!matriz) return
-
-  console.log("matriz recebida",matriz)
   
   const linhas = matriz.length || document.getElementById("linhas").value;
   const colunas = matriz[0].length || document.getElementById("colunas").value;
