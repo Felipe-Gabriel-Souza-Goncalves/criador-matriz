@@ -247,11 +247,15 @@
             </div>
 
             <!-- RESULTADO -->
-            <div id="resultado-determinante-matriz"></div>
+            <div id="resultado-determinante-matriz">
+              <p>Determinante: </p>
+              <p>DP (Diagonal principal): </p>
+              <p>DS (Diagonal secundária): </p>
+            </div>
           </div>
           <button
             class="botao-operacao"
-            onclick="console.log(acharDeterminante(matrizesOperacao['determinante'][0]))"
+            onclick="carregarDeterminante()"
           >
             Encontrar determinante
           </button>

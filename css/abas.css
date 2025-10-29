@@ -24,7 +24,7 @@
   font-size: 1.1em;
 }
 
-div[id^="resultado"]{
+div[id^="resultado"]:not(#resultado-determinante-matriz){
   display: none;
   border: 1px solid black;
   border-collapse: collapse;
@@ -34,9 +34,11 @@ div[id^="resultado"] div{
   align-content: center;
 }
 
+
+
 .matriz-ocupada{
   display: grid;
-  border: 1px solid black;
+  border: 1px solid black !important;
   border-collapse: collapse;
 }
 .matriz-ocupada div{

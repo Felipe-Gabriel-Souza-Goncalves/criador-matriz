@@ -34,6 +34,8 @@ function salvarMatriz(){
         determinante: determinante || "Indefinido",
     })
 
+    sessionStorage.setItem("matrizesSalvas", JSON.stringify(matrizesSalvas))
+
     alert("Matriz salva com sucesso")
     carregarMatrizesSalvas()
 }
@@ -86,7 +88,7 @@ function carregarMatrizesSalvas(carregar = false, local = null){
         } else {
             const excluir = document.createElement("button")
             excluir.innerText = "Excluir"
-            excluir.click = excluirMatriz(i)
+            excluir.setAttribute("onclick", `excluirMatriz(${i})`)
 
             containerMatriz.appendChild(excluir)
         }
@@ -98,6 +100,7 @@ function carregarMatrizesSalvas(carregar = false, local = null){
 
 function apagarMatrizes(){
     matrizesSalvas = []
+    sessionStorage.removeItem("matrizesSalvas")
     carregarMatrizesSalvas()
     alert("Matrizes apagadas")
 
@@ -127,12 +130,17 @@ function carregarMatriz(secao, obj){
     const index = parseInt(secao.charAt(secao.length - 1)) - 1
 
     matrizesOperacao[operacao][index] = obj.matriz
-
-    console.log(matrizesOperacao)
-
-
 }
 
-function excluirMatriz(id){
-    console.log("testing")
+function excluirMatriz(i){
+    matrizesSalvas.splice(i, 1)
+    sessionStorage.setItem("matrizesSalvas", JSON.stringify(matrizesSalvas))
+    carregarMatrizesSalvas()
 }
+
+document.addEventListener("DOMContentLoaded", () =>{
+    if(sessionStorage.getItem("matrizesSalvas") != null){
+        matrizesSalvas = JSON.parse(sessionStorage.getItem("matrizesSalvas"))
+        carregarMatrizesSalvas()
+    }
+})

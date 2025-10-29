@@ -1,8 +1,12 @@
 function acharDeterminante(mat){
 
+  if(mat.length == 0){
+    alert("Matriz não selecionada")
+    return false
+  }
   if(mat.length != mat[0].length){
     alert("As matrizes devem ser quadradas")
-    return
+    return false
   }
 
   let dp = 0
@@ -47,4 +51,17 @@ function acharDeterminante(mat){
 
   const determinante = dp - ds
   return {determinante, dp, ds}
+}
+
+function carregarDeterminante(){
+  const campoResultado = document.getElementById("resultado-determinante-matriz")
+  const result = acharDeterminante(matrizesOperacao["determinante"][0])
+  if(!result) return
+  else{
+    campoResultado.innerHTML = `
+    <p>Determinante: ${result.determinante}</p>
+    <p>DP (Diagonal principal): ${result.dp}</p>
+    <p>DS (Diagonal secundária): ${result.ds}</p>
+    `
+  }
 }
