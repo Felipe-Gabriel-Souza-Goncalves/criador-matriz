@@ -1,3 +1,9 @@
+let regras = [[]];
+let lengthOp = [];
+let currentTeclado = 0
+let inputRegra = 0;
+let isCondicao = true;
+
 function digitarRegra(char, charShow = null) {
   if (isCondicao == true) {
     if (!regras[inputRegra][0]) regras[inputRegra][0] = "";
@@ -116,6 +122,7 @@ function returnRule(i = null, j = null, rule) {
       rule.replaceAll('j', j)
       
       resultado = eval(rule)
+      console.log(resultado)
     }
     if(resultado == undefined) throw new Error("Resultado undefined")
     
@@ -203,12 +210,15 @@ function gerarMatrizComRegra(){
 
           const pertence = returnRule(i, j, regra[0]);
           if (pertence) {
+
             valor = returnRule(i, j, regra[1]);
             cor = regra[2]
+            
             try {
               valor = parseFloat(valor)
-              if(Number.isInteger(valor)) valor = parseInt(valor)
-              else valor = valor.toFixed(2)
+              valor = valor % 1 === 0 ? parseInt(valor) : valor
+              // if(Number.isInteger(valor)) valor = parseInt(valor)
+              // else valor = valor.toFixed(2)
               
               if(isNaN(valor)){
                 document.getElementById("grid").innerHTML = "<strong>Erro na regra</strong>";

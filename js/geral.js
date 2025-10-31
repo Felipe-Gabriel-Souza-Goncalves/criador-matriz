@@ -32,6 +32,20 @@ function toggleAside(){
   }
 }
 
+function toggleAtalhos(){
+  const bgAtalhos = document.getElementById('bg-card-atalhos')
+  
+  config.atalhoAberto = !config.atalhoAberto
+  config.atalhoAberto ? bgAtalhos.style.display = 'block' : bgAtalhos.style.display = 'none'
+
+  if(config.atalhoAberto){
+    config.elementOpened = bgAtalhos
+    document.querySelector("#card-atalhos button").focus()
+  }
+  
+}
+
+
 function abrirSecao(secao = null, secaoAuxiliar = null){
 
   document.getElementById("grid").style.display = "none"
@@ -58,6 +72,22 @@ function abrirSecao(secao = null, secaoAuxiliar = null){
 
 }
 
+function fecharElemento() {
+  if (config.elementOpened == undefined) {
+    toggleAside();
+  } else {
+    try {
+      const element = config.elementOpened;
+      element.style.display = "none";
+
+      config.elementOpened = undefined;
+    } catch (error) {
+      console.log("Elemento não encontrado");
+    }
+  }
+}
+
+
 function alterarConfig(att, value){
   if(!att || !value) return
 
@@ -67,15 +97,20 @@ function alterarConfig(att, value){
 
 function configPadrao(){
   Object.keys(config.configPadrao).forEach(att => {
-    console.log(`${att}: ${config[att]} x ${config.configPadrao[att]}`);
+    // console.log(`${att}: ${config[att]} x ${config.configPadrao[att]}`);
     config[att] = config.configPadrao[att]
   });
+
+  atualizarListaConfig()
 }
 
 function atualizarListaConfig(){
-  const configuracoes = document.getElementById("container-configuracoes")
-}
+  const configuracoes = [
+    ['valorPadrao', 'inputValorPadrao'],
+    ['corPadrao', 'inputCorPadrao']
+  ]
 
-(() =>{
-  const height = window.innerWidth
-})
+  configuracoes.forEach(row => {
+    document.getElementById(`${row[1]}`).value = config[row[0]]
+  })
+}

@@ -26,6 +26,26 @@ const tecladoOrganizado = [
   ],
 ];
 
+
+function apagarChar() {
+
+  if(lengthOp.length === 0) return
+
+  const [lengthEval, lengthInput, input] = [...lengthOp[lengthOp.length - 1]]
+
+  if(input.value === "") return
+  input.value = input.value.slice(0, (input.value.length - lengthInput)).trim();
+
+  if (isCondicao) {
+    regras[inputRegra][0] = regras[inputRegra][0].slice(0, regras[inputRegra][0].length - lengthEval)
+  } else {
+    regras[inputRegra][1] = regras[inputRegra][1].slice(0, regras[inputRegra][1].length - lengthEval)
+  }
+
+  lengthOp.pop()
+}
+
+
 document.body.addEventListener("keydown", (e) => {
   const tecla = e.key.length == 1 ? e.key.toLocaleLowerCase() : e.key;
 
