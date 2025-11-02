@@ -42,6 +42,7 @@ function somaSubtracaoMatrizes(mat1, mat2, operacao){
   }
 
   const mat3 = []
+  const celulasAnimar = []
 
   // Soma as 2 matrizes
   mat1.forEach((linha, i) =>{
@@ -53,10 +54,23 @@ function somaSubtracaoMatrizes(mat1, mat2, operacao){
 
         if(operacao == "soma"){
           mat3[i][j] = item + mat2[i][j]  
+
+          celulasAnimar.push([
+            [[(i*mat1.length + j)], "resultado-soma-matriz"],
+            [[(i*mat1.length + j)], "soma-matriz1"],
+            [[(i*mat1.length + j)], "soma-matriz2"],
+          ])
+
         } else if(operacao == "subtracao"){
           mat3[i][j] = item - mat2[i][j]  
-        }
 
+          celulasAnimar.push([
+            [[(i*mat1.length + j)], "resultado-subtracao-matriz"],
+            [[(i*mat1.length + j)], "subtracao-matriz1"],
+            [[(i*mat1.length + j)], "subtracao-matriz2"],
+          ])
+
+        }
       })
 
     // Se forem de 1 dimensão
@@ -72,9 +86,9 @@ function somaSubtracaoMatrizes(mat1, mat2, operacao){
   
   })
   
-  return mat3
+  return {matriz: mat3, animacao: celulasAnimar}
 }
-
+ 
 function operacaoMatrizes(operacao){
   if(!operacao){
     console.log("Operação não fornecida")
@@ -82,11 +96,13 @@ function operacaoMatrizes(operacao){
   }
 
   const eResultado = `resultado-${operacao}-matriz` 
-  const matriz = somaSubtracaoMatrizes(
+  const {matriz, animacao} = somaSubtracaoMatrizes(
     matrizesOperacao[`${operacao}`][0],
     matrizesOperacao[`${operacao}`][1],
     `${operacao}`)
   
+  matrizAnimada = animacao
+
   criarMatriz(matriz, eResultado)
 }
 

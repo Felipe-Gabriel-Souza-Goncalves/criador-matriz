@@ -2,14 +2,21 @@ const config = {
   configPadrao: {
     valorPadrao: 1,
     corPadrao: "#efefef",
+    animacaoAtiva: false,
+    intervaloAnimacao: 0.5,
+    animacaoCor: "#cecece",
   },
   atalhoAberto: false,
   asideAberto: false,
   elementOpened: undefined,
   valorPadrao: 1,
   corPadrao: "#efefef",
-
+  animacaoAtiva: true,
+  intervaloAnimacao: 0.4,
+  animacaoCor: "#cecece",
 }
+
+let matrizAnimada = undefined
 
 function toggleAside(){
   config.asideAberto = !config.asideAberto
@@ -28,6 +35,7 @@ function toggleAside(){
     document.querySelector("aside").style.left = "-300px"
     setTimeout(() => {
       document.querySelector("aside").style.display = "none"
+      document.getElementById("spanAlteracoes").style.display = "none"
     }, 500)
   }
 }
@@ -88,11 +96,17 @@ function fecharElemento() {
 }
 
 
-function alterarConfig(att, value){
-  if(!att || !value) return
+function alterarConfig(att = null, value = null, callback = undefined){
+  if(att == null || value == null) return
 
   config[att] = value
   alert("Configuração alterada")
+
+  document.getElementById("spanAlteracoes").style.display = "none"
+
+  if(callback){
+    callback()
+  }
 }
 
 function configPadrao(){
@@ -108,9 +122,33 @@ function atualizarListaConfig(){
   const configuracoes = [
     ['valorPadrao', 'inputValorPadrao'],
     ['corPadrao', 'inputCorPadrao']
+    ['animacaoAtiva', 'inputAnimacaoAtiva']
   ]
 
   configuracoes.forEach(row => {
     document.getElementById(`${row[1]}`).value = config[row[0]]
   })
+}
+
+function liberarSalvarConfig(element, indexImg){
+  const input = document.getElementById(`${element}`)
+  document.getElementById("spanAlteracoes").style.display = "block"
+
+}
+
+// Callbacks de configuração
+function alterarCorAnimacao(){
+  for (const sheet of document.styleSheets) {
+    for (const rule of sheet.cssRules) {
+      if (rule.selectorText === '.celula-animada') {
+        rule.style.backgroundColor = config.animacaoCor;
+        break;
+      }
+    }
+  }
+}
+
+function atualizarSpanConfig(idSpan, idInput, pre = "", suf = ""){
+  document.getElementById(`${idSpan}`).innerText = 
+  pre + document.getElementById(`${idInput}`).value + suf
 }

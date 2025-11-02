@@ -12,6 +12,18 @@
   box-sizing: border-box;
 }
 
+/* Ficam aqui em cima para acelerar procura no javascript */
+.celulaGrid{
+  background-color: unset;
+}
+.celula-animada{
+  background-color: #cecece !important;
+}
+#spanAlteracoes{
+  display: none;
+}
+
+
 body {
   display: flex;
   flex-direction: column;
@@ -114,6 +126,8 @@ footer a{
 body::-webkit-scrollbar{
   width: 0;
 }
+
+
 
 @media (max-width: 650px) {
   nav{

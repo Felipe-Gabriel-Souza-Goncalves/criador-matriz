@@ -235,5 +235,5 @@ function gerarMatrizComRegra(){
     }
   }
 
-  criarMatriz(matrizGerada, null, true)
+  criarMatriz(matrizGerada, null, true, false)
 }

@@ -34,20 +34,27 @@ function criarMatrizLayout(){
   }
 }
 
-function matrizFinalizada(){
-  const campo = document.getElementsByClassName("input-matriz-personalizada")
-  const matrizPersonalizada = []
+// function matrizFinalizada(){
+//   const campo = document.getElementsByClassName("input-matriz-personalizada")
+//   const matrizPersonalizada = []
 
-  for(let i = 0; i < campo.length; i++){
-    if(campo[i].value == "" || isNaN(campo[i].value)){
-      return
-    }
-  }
+//   for(let i = 0; i < campo.length; i++){
+//     if(campo[i].value == "" || isNaN(campo[i].value)){
+//       return
+//     }
+//   }
 
-  const grid = document.getElementById("grid")
-  const gridStyles = window.getComputedStyle(grid)
+//   const grid = document.getElementById("grid")
+//   const gridStyles = window.getComputedStyle(grid)
 
-  const templateRows = gridStyles.getPropertyValue("grid-template-rows").split(" ").length
-  const templateColumns = gridStyles.getPropertyValue("grid-template-columns").split(" ").length
+//   const templateRows = gridStyles.getPropertyValue("grid-template-rows").split(" ").length
+//   const templateColumns = gridStyles.getPropertyValue("grid-template-columns").split(" ").length
   
+// }
+
+function animarResultado(celulas){
+  if(!celulas) return
+
+  celulas = document.querySelectorAll("#grid div").filter((_, i) => celulas.includes(i))
+  console.log(celulas)
 }

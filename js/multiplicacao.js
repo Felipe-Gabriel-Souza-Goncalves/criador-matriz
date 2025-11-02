@@ -40,19 +40,38 @@ function multiplicarMatrizes(mat1, mat2) {
   }
 
   const mat3 = [];
-  const equacao = [];
+  const celulasAnimar = []
 
   mat1.forEach((linha, i) => {
     mat3.push([]);
-    equacao.push([]);
     linha.forEach((coluna, j) => {
       const valorCelula = [];
-      const subequacao = [];
+
+
+
+      const celulasAnimacaoAtual = [[], []]
 
       linha.forEach((correspondente, k) => {
+
+        // Multiplica como (matriz1[i][k] * matriz2[k][j]) para cada iteração
+
+        // celulasAnimacaoAtual[0].push(correspondente)
+        // celulasAnimacaoAtual[1].push(mat2[k][j])
+        celulasAnimacaoAtual[0].push(i*k + k)
+        celulasAnimacaoAtual[1].push(k*mat2.length + j)
+
+        // console.log(i,k + " -- " + k,j)
+
         valorCelula.push(correspondente * mat2[k][j]);
-        subequacao.push(correspondente + "*" + mat2[k][j] + "+");
       });
+
+      celulasAnimar.push([
+        [[(i*mat1.length + j)], "resultado-multiplicacao-matriz"],
+        [[celulasAnimacaoAtual[0]], "multiplicacao-matriz1"],
+        [[celulasAnimacaoAtual[1]], "multiplicacao-matriz2"],
+      ])
+
+
 
       const valorInicial = 0;
       const somaTotal = valorCelula.reduce(
@@ -61,18 +80,19 @@ function multiplicarMatrizes(mat1, mat2) {
       );
 
       mat3[i].push(somaTotal);
-      equacao[i].push(subequacao);
     });
   });
-  return mat3;
+  return {matriz: mat3, animacao: celulasAnimar};
 }
 
 function carregarMultiplicacao() {
   const resultado = "resultado-multiplicacao-matriz";
-  const matriz = multiplicarMatrizes(
+  const {matriz, animacao} = multiplicarMatrizes(
     matrizesOperacao["multiplicacao"][0],
     matrizesOperacao["multiplicacao"][1]
   );
+  matrizAnimada = animacao
 
-  criarMatriz(matriz, resultado);
+
+  criarMatriz(matriz, resultado, false, false);
 }

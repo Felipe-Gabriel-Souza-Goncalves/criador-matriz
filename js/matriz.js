@@ -2,7 +2,7 @@ const condicao = document.getElementsByClassName("regra-condicao");
 const resultado = document.getElementsByClassName("regra-resultado");
 const cor = document.getElementsByClassName("regra-cor");
 
-function criarMatriz(matriz, grid = null, regra = false) {
+async function criarMatriz(matriz, grid = null, regra = false, animacaoAtiva = config.animacaoAtiva) {
   if (!matriz) return;
 
   const linhas = matriz.length || document.getElementById("linhas").value;
@@ -21,27 +21,71 @@ function criarMatriz(matriz, grid = null, regra = false) {
     document.getElementById("grid").style.width = "750px";
   }
 
-  for (let i = 0; i < linhas; i++) {
-    for (let j = 0; j < colunas; j++) {
-      const div = document.createElement("div");
+  if (!animacaoAtiva) {
+    for (let i = 0; i < linhas; i++) {
+      for (let j = 0; j < colunas; j++) {
+        const div = document.createElement("div");
 
-      if (regra) {
-        // Valores / cores padrão
-        div.innerText = typeof matriz[i][j].valor == "number" ? matriz[i][j].valor : config.valorPadrao;
+        if (regra) {
+          // Valores / cores padrão
+          div.innerText =
+            typeof matriz[i][j].valor == "number" ? matriz[i][j].valor : config.valorPadrao;
 
-        div.style.background = typeof matriz[i][j].cor == "string" ? matriz[i][j].cor : config.corPadrao;
-      } else {
+          div.style.background =
+            typeof matriz[i][j].cor == "string" ? matriz[i][j].cor : config.corPadrao;
+        } else {
+          div.innerText = typeof matriz[i][j] == "number" ? matriz[i][j] : config.valorPadrao;
+          div.style.background = config.corPadrao;
+        }
+
+        document.getElementById(gridMatriz).appendChild(div);
+      }
+    }
+  } else {
+    alterarCorAnimacao()
+    
+    for (let i = 0; i < linhas; i++) {
+      for (let j = 0; j < colunas; j++) {
+        const div = document.createElement("div");
+
         div.innerText = typeof matriz[i][j] == "number" ? matriz[i][j] : config.valorPadrao;
+
+        document.getElementById(gridMatriz).appendChild(div);
+
+        for (let conjunto of matrizAnimada[i * colunas + j]) {
+
+          const celulasGrid = document.querySelectorAll(`#${conjunto[1]} div`);
+
+          for (let n = 0; n < conjunto[0].length; n++) {
+            
+            // console.log("Celula: " , celulasGrid[conjunto[0][n]], conjunto[0][n], conjunto[0])
+            // console.log(conjunto, conjunto[0][n], conjunto[0][n][n], celulasGrid)
+
+            if(Array.isArray(conjunto[0][n])){
+              celulasGrid[conjunto[0][n][n]].classList.add("celula-animada");
+            } else{
+              celulasGrid[conjunto[0][n]].classList.add("celula-animada");
+            }
+          }
+        }
+
+        await new Promise((resolve, reject) => {
+          setTimeout(() => {resolve();}, config.intervaloAnimacao * 1000);
+        });
+
+        const celulasAnimadas = document.querySelectorAll(".celula-animada");
+
+        for (let k = 0; k < celulasAnimadas.length; k++) {
+          celulasAnimadas[k].classList.remove("celula-animada");
+        }
+
         div.style.background = config.corPadrao;
       }
-
-      document.getElementById(gridMatriz).appendChild(div);
     }
   }
 
   ultimaMatriz = structuredClone(matriz);
 }
-
 
 function gerarMatrizAleatoria() {
   const resposta = verificarLinhasColunas();
@@ -66,7 +110,7 @@ function gerarMatrizAleatoria() {
     }
   }
 
-  criarMatriz(matrizGerada);
+  criarMatriz(matrizGerada, null, false, false);
 
   ultimaMatriz = matrizGerada;
 }
@@ -76,11 +120,14 @@ function verificarLinhasColunas() {
   const colunas = document.getElementById("colunas").value;
 
   if (linhas <= 0 || linhas > 20 || colunas <= 0 || colunas > 20) {
-    document.getElementById("grid").innerHTML = "<strong>Linhas e colunas devem ser de 1 a 20</strong>";
+    document.getElementById("grid").innerHTML =
+      "<strong>Linhas e colunas devem ser de 1 a 20</strong>";
     document.getElementById("grid").style.gridTemplateRows = `1fr`;
     document.getElementById("grid").style.gridTemplateColumns = `1fr`;
 
-    linhas <= 0 || linhas > 20 ? document.getElementById("linhas").focus() : document.getElementById("colunas").focus();
+    linhas <= 0 || linhas > 20
+      ? document.getElementById("linhas").focus()
+      : document.getElementById("colunas").focus();
 
     return false;
   }
