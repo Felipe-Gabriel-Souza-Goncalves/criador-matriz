@@ -236,4 +236,5 @@ function gerarMatrizComRegra(){
   }
 
   criarMatriz(matrizGerada, null, true, false)
+  ultimaMatriz = matrizGerada.map(row => row.map(col => col.valor))
 }

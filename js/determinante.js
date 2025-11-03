@@ -11,6 +11,7 @@ function acharDeterminante(mat){
 
   let dp = 0
   let ds = 0
+  // const celulasAnimar = []
 
   // Diagonal Principal ⬊
   /*
@@ -24,6 +25,11 @@ function acharDeterminante(mat){
     let diagonalAtual = 1
     
     for(let j = 0; j < mat[0].length; j++){
+
+      // celulasAnimar.push([
+      //   [[diagonalAtual, mat[(j) % mat.length][(j+i) % mat.length]], "resultado-determinante-matriz"]
+      // ])
+      
       diagonalAtual *= mat[(j) % mat.length][(j+i) % mat.length] 
     }
 
@@ -48,6 +54,7 @@ function acharDeterminante(mat){
 
     ds += diagonalAtual
   }
+  // console.log(celulasAnimar)
 
   const determinante = dp - ds
   return {determinante, dp, ds}

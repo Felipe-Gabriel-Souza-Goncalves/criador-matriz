@@ -55,7 +55,7 @@ div[id^="resultado"] div{
 .campo-carregar-matriz{
   min-width: 400px;
   min-height: 300px;
-  background-color: rgb(228, 228, 228);
+  background-color: var(--corPadrao);
   border: 4px dashed gray;
 }
 

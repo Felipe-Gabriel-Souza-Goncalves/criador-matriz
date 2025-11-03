@@ -57,12 +57,14 @@ async function criarMatriz(matriz, grid = null, regra = false, animacaoAtiva = c
           const celulasGrid = document.querySelectorAll(`#${conjunto[1]} div`);
 
           for (let n = 0; n < conjunto[0].length; n++) {
-            
+
             // console.log("Celula: " , celulasGrid[conjunto[0][n]], conjunto[0][n], conjunto[0])
             // console.log(conjunto, conjunto[0][n], conjunto[0][n][n], celulasGrid)
 
             if(Array.isArray(conjunto[0][n])){
-              celulasGrid[conjunto[0][n][n]].classList.add("celula-animada");
+              conjunto[0][n].forEach(indexCelula =>{
+                celulasGrid[indexCelula].classList.add("celula-animada");
+              })
             } else{
               celulasGrid[conjunto[0][n]].classList.add("celula-animada");
             }

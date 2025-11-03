@@ -47,8 +47,6 @@ function multiplicarMatrizes(mat1, mat2) {
     linha.forEach((coluna, j) => {
       const valorCelula = [];
 
-
-
       const celulasAnimacaoAtual = [[], []]
 
       linha.forEach((correspondente, k) => {
@@ -57,7 +55,7 @@ function multiplicarMatrizes(mat1, mat2) {
 
         // celulasAnimacaoAtual[0].push(correspondente)
         // celulasAnimacaoAtual[1].push(mat2[k][j])
-        celulasAnimacaoAtual[0].push(i*k + k)
+        celulasAnimacaoAtual[0].push(i*linha.length + k)
         celulasAnimacaoAtual[1].push(k*mat2.length + j)
 
         // console.log(i,k + " -- " + k,j)
@@ -93,6 +91,7 @@ function carregarMultiplicacao() {
   );
   matrizAnimada = animacao
 
+  console.log(matrizAnimada)
 
-  criarMatriz(matriz, resultado, false, false);
+  criarMatriz(matriz, resultado, false, true);
 }
