@@ -13,8 +13,8 @@ function multiplicarMatrizes(mat1, mat2) {
   }
 
   // Se tem o mesmo tamanho
-  if (mat1.length !== mat2.length) {
-    alert("Ambas as matrizes devem ter o mesmo tamanho");
+  if (mat1[0].length !== mat2.length) {
+    alert("Número de linhas de matriz A deve ser o mesmo de colunas de matriz B 1");
     return;
   }
 
@@ -25,26 +25,22 @@ function multiplicarMatrizes(mat1, mat2) {
     // Itera para procurar linhas de tamanhos diferentes
     mat1.forEach((linha, i) => {
       if (!temMesmoTamanho) return;
-      if (linha.length !== mat2[i].length) temMesmoTamanho = false;
+      if (linha.length !== mat2.length) temMesmoTamanho = false;
     });
 
     if (!temMesmoTamanho) {
-      alert("Ambas as matrizes devem ter o mesmo tamanho");
+      alert("Número de linhas de matriz A deve ser o mesmo de colunas de matriz B 2");
       return;
     }
 
-    // Se forem
-  } else if (mat1[0].length !== mat2[0].length) {
-    alert("Ambas as matrizes devem ter o mesmo tamanho");
-    return;
-  }
+  } 
 
   const mat3 = [];
   const celulasAnimar = []
 
   mat1.forEach((linha, i) => {
     mat3.push([]);
-    linha.forEach((coluna, j) => {
+    mat2[0].forEach((coluna, j) => {
       const valorCelula = [];
 
       const celulasAnimacaoAtual = [[], []]
@@ -52,15 +48,14 @@ function multiplicarMatrizes(mat1, mat2) {
       linha.forEach((correspondente, k) => {
 
         // Multiplica como (matriz1[i][k] * matriz2[k][j]) para cada iteração
-
-        // celulasAnimacaoAtual[0].push(correspondente)
-        // celulasAnimacaoAtual[1].push(mat2[k][j])
         celulasAnimacaoAtual[0].push(i*linha.length + k)
-        celulasAnimacaoAtual[1].push(k*mat2.length + j)
+        celulasAnimacaoAtual[1].push(k*mat2[0].length + j)
 
         // console.log(i,k + " -- " + k,j)
 
+        console.log(celulasAnimacaoAtual[0])
         valorCelula.push(correspondente * mat2[k][j]);
+        
       });
 
       celulasAnimar.push([
@@ -90,8 +85,6 @@ function carregarMultiplicacao() {
     matrizesOperacao["multiplicacao"][1]
   );
   matrizAnimada = animacao
-
-  console.log(matrizAnimada)
 
   criarMatriz(matriz, resultado, false, true);
 }

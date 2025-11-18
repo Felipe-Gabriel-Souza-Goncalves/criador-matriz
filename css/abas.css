@@ -64,3 +64,9 @@ div[id^="resultado"] div{
   text-align:center;
   align-content:center;
 }
+
+#salvar-personalizado{
+  width: 250px;
+  font-size: 1.4em;
+  display: none;
+}

@@ -1,6 +1,7 @@
 function criarMatrizLayout(){
   const linhas = document.getElementById("linhas").value;
   const colunas = document.getElementById("colunas").value;
+  
 
   if((linhas <= 0 || linhas > 20) || (colunas <= 0 || colunas > 20)){
     document.getElementById("grid").innerHTML = "<strong>Linhas e colunas devem ser de 1 a 20</strong>"
@@ -12,9 +13,13 @@ function criarMatrizLayout(){
     return
   }
 
+  document.getElementById("container-personalizado-matrizes").setAttribute("data-linhas", linhas)
+  document.getElementById("container-personalizado-matrizes").setAttribute("data-colunas", colunas)
+
   document.getElementById("grid").style.gridTemplateRows = `repeat(${linhas}, minmax(${200 / linhas}px, 1fr))`;
   document.getElementById("grid").style.gridTemplateColumns = `repeat(${colunas}, minmax(${200 / colunas}px, 1fr))`;
   document.getElementById("grid").innerHTML = "";
+
 
   for (let i = 1; i <= linhas; i++) {
     for (let j = 1; j <= colunas; j++) {
@@ -34,27 +39,33 @@ function criarMatrizLayout(){
   }
 }
 
-// function matrizFinalizada(){
-//   const campo = document.getElementsByClassName("input-matriz-personalizada")
-//   const matrizPersonalizada = []
+function matrizFinalizada(){
+  const campo = document.getElementsByClassName("input-matriz-personalizada")
+  const salvarPersonalizado = document.getElementById("salvar-personalizado")
+  const matrizPersonalizada = []
 
-//   for(let i = 0; i < campo.length; i++){
-//     if(campo[i].value == "" || isNaN(campo[i].value)){
-//       return
-//     }
-//   }
+  for(let i = 0; i < campo.length; i++){
+    if(campo[i].value == "" || isNaN(campo[i].value)){
+      salvarPersonalizado.style.display = "none"
+      ultimaMatriz = undefined
+      return
+    }
+  }
 
-//   const grid = document.getElementById("grid")
-//   const gridStyles = window.getComputedStyle(grid)
-
-//   const templateRows = gridStyles.getPropertyValue("grid-template-rows").split(" ").length
-//   const templateColumns = gridStyles.getPropertyValue("grid-template-columns").split(" ").length
+  const containerPersonalizado = document.getElementById("container-personalizado-matrizes")
   
-// }
+  const linhas = parseInt(containerPersonalizado.getAttribute("data-linhas"))
+  const colunas = parseInt(containerPersonalizado.getAttribute("data-colunas"))
 
-function animarResultado(celulas){
-  if(!celulas) return
+  for (let i = 0; i < linhas; i++) {
+    matrizPersonalizada.push([]);
+    for (let j = 0; j < colunas; j++) {
+      const valor = campo[i*colunas + j].value
+      matrizPersonalizada[i].push(valor)
+    }
+  }
 
-  celulas = document.querySelectorAll("#grid div").filter((_, i) => celulas.includes(i))
-  console.log(celulas)
+  salvarPersonalizado.style.display = "unset"
+  ultimaMatriz = structuredClone(matrizPersonalizada)
+
 }

@@ -121,19 +121,19 @@
     </aside>
 
     <nav>
-      <button onclick="abrirSecao('container-minhas-matrizes', ['container-criacao-matrizes'])">
+      <button onclick="abrirSecao('minhas', ['container-criacao-matrizes'])">
         Minhas matrizes
       </button>
-      <button onclick="abrirSecao('container-regras-matrizes', ['container-criacao-matrizes'])">
+      <button onclick="abrirSecao('regras', ['container-criacao-matrizes'])">
         Regras
       </button>
-      <button onclick="abrirSecao('container-aleatorio-matrizes', ['container-criacao-matrizes'])">
+      <button onclick="abrirSecao('aleatorio', ['container-criacao-matrizes'])">
         Aleatório
       </button>
-      <button onclick="abrirSecao('container-soma-matrizes')">Soma</button>
-      <button onclick="abrirSecao('container-subtracao-matrizes')">Subtração</button>
-      <button onclick="abrirSecao('container-multiplicacao-matrizes')">Multiplicação</button>
-      <button onclick="abrirSecao('container-determinante-matrizes')">Determinantes</button>
+      <button onclick="abrirSecao('soma')">Soma</button>
+      <button onclick="abrirSecao('subtracao')">Subtração</button>
+      <button onclick="abrirSecao('multiplicacao')">Multiplicação</button>
+      <button onclick="abrirSecao('determinante')">Determinantes</button>
     </nav>
 
     <main>
@@ -145,7 +145,7 @@
         <input type="number" id="colunas" min="0" max="20" placeholder="Colunas (j)" />
         <br /><br />
 
-        <button onclick="criarMatrizLayout()">Criar Personalizado</button>
+        <button onclick="abrirSecao('personalizado', ['container-criacao-matrizes', ['grid', 'grid']]); criarMatrizLayout()">Criar Personalizado</button>
         <button onclick="salvarMatriz()">Salvar matriz</button>
       </div>
 
@@ -187,6 +187,12 @@
       <div id="container-abas">
         <div id="container-minhas-matrizes" class="container-abas">
           <h2>Minhas matrizes</h2>
+        </div>
+
+        <div id="container-personalizado-matrizes" class="container-abas">
+          <h2>Matriz personalizada</h2>
+          <p>Insira o número de linhas/colunas e insira manualmente</p>
+          <button id="salvar-personalizado" onclick="salvarMatriz()">Salvar</button>
         </div>
 
         <div id="container-aleatorio-matrizes" class="container-abas">

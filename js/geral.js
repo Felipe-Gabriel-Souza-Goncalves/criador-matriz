@@ -60,8 +60,10 @@ function abrirSecao(secao = null, secaoAuxiliar = null){
   document.getElementById("container-criacao-matrizes").style.display = "none"
   
   document.getElementById("container-minhas-matrizes").style.display = "none"
+  document.getElementById("container-personalizado-matrizes").style.display = "none"
   document.getElementById("container-regras-matrizes").style.display = "none"
   document.getElementById("container-aleatorio-matrizes").style.display = "none"
+
   document.getElementById("container-soma-matrizes").style.display = "none"
   document.getElementById("container-subtracao-matrizes").style.display = "none"
   document.getElementById("container-multiplicacao-matrizes").style.display = "none"
@@ -69,12 +71,16 @@ function abrirSecao(secao = null, secaoAuxiliar = null){
 
 
   if(secao != null){
-    document.getElementById(`${secao}`).style.display = "block"
+    document.getElementById(`container-${secao}-matrizes`).style.display = "block"
   }
 
   if(secaoAuxiliar != null){
     secaoAuxiliar.forEach(secao =>{
-      document.getElementById(`${secao}`).style.display = "block"
+      if(Array.isArray(secao)){
+        document.getElementById(`${secao[0]}`).style.display = secao[1] || "block"
+      } else{
+        document.getElementById(`${secao}`).style.display = "block"
+      }
     })
   }
 
