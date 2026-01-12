@@ -1,3 +1,6 @@
+const btnExportar = document.getElementById("btn-exportar")
+const btnImportar = document.getElementById("btn-importar")
+
 let ultimaMatriz = undefined
 let matrizesOperacao = {
     soma: [],
@@ -57,7 +60,7 @@ function carregarMatrizesSalvas(carregar = false, local = null){
     const minhasMatrizes = local != null ?  
     document.getElementById(`${local}`) : document.getElementById("container-minhas-matrizes")
 
-    minhasMatrizes.innerHTML = ""
+    minhasMatrizes.innerHTML = "<h2>Minhas matrizes</h2>"
 
     if(local != null){
         minhasMatrizes.style.display = "flex"
@@ -137,6 +140,51 @@ function excluirMatriz(i){
     sessionStorage.setItem("matrizesSalvas", JSON.stringify(matrizesSalvas))
     carregarMatrizesSalvas()
 }
+
+function exportarMatrizes(){
+    if(matrizesSalvas.length == 0 || matrizesSalvas[0].length == 0) {
+        alert("Não há matrizes salvas")
+        return
+    }
+
+    const blob = new Blob([JSON.stringify(matrizesSalvas)], {type: "application/json"})
+    const url = URL.createObjectURL(blob)
+
+    const link = document.createElement("a")
+    link.href = url
+    link.download = "minhasMatrizes"
+
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+}
+
+function importarMatrizes(){
+    const inputImportar = document.getElementById("input-importar")
+    if(!inputImportar.files) {
+        alert("Nenhum arquivo selecionado")
+        return
+    }
+
+    const leitor = new FileReader()
+    leitor.onload = () =>{
+        try {
+            console.log(leitor.result)
+            matrizesSalvas = JSON.parse(leitor.result)
+            carregarMatrizesSalvas()
+            sessionStorage.setItem("matrizesSalvas", JSON.stringify(matrizesSalvas))
+        } catch (error) {
+            console.log(error)
+            matrizesSalvas = []
+        }
+    }
+    leitor.onerror = () => {
+        alert("Erro ao importar")
+    }
+
+    leitor.readAsText(inputImportar.files[0])
+}
+
 
 document.addEventListener("DOMContentLoaded", () =>{
     if(sessionStorage.getItem("matrizesSalvas") != null){

@@ -114,8 +114,9 @@
 
         <!-- Item configuração -->
         <div tabindex="0" class="item-configuracao">
-          <button disabled>Importar matrizes</button>
-          <button disabled>Exportar matrizes</button>
+          <button id="btn-exportar" onclick="exportarMatrizes()">Exportar matrizes</button>
+          <button id="btn-importar" onclick="document.getElementById('input-importar').click()">Importar matrizes</button>
+          <input style="display: none;" type="file" id="input-importar" accept="application/json" onchange="importarMatrizes()">
         </div>
       </div>
     </aside>
